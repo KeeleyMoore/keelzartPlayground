@@ -1,17 +1,28 @@
 import React, { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
+import Effects from './Effects';
 
-function Dots() {
+// Smooth motion:
+const smoothWave = (sinValue: number) => Math.sin(sinValue);
+// Snappy Motion:
+const roundedSquareWave = (t: number, delta: number, a: number, f: number) => {
+  return ((2 * a) / Math.PI) * Math.atan(smoothWave(2 * Math.PI * t * f) / delta);
+};
+
+const Dots = () => {
   const ref = useRef<THREE.InstancedMesh>();
 
-  const { vec, transform, positions } = useMemo(() => {
+  const { vec, transform, positions, distances } = useMemo(() => {
     const vec = new THREE.Vector3();
+    const transform = new THREE.Matrix4();
+
+    // Precompute randomized initial positions
     const positions = [...Array(10000)].map((_, i) => {
       const position = new THREE.Vector3();
+      // Place in a grid
       position.x = (i % 100) - 50;
       position.y = Math.floor(i / 100) - 50;
-
       // Offset every other column (hexagonal pattern)
       position.y += (i % 2) * 0.5;
       // Noise generation
@@ -20,22 +31,45 @@ function Dots() {
       // read these articles and use a mathamatical and more natural distribution method: https://www.cs.ubc.ca/~rbridson/docs/bridson-siggraph07-poissondisk.pdf, https://en.wikipedia.org/wiki/Centroidal_Voronoi_tessellation
       return position;
     });
-    const transform = new THREE.Matrix4();
 
-    return { vec, transform, positions };
+    // Precompute initial distances with octagonal offset
+    const right = new THREE.Vector3(1, 0, 0);
+    // change the input to the wave based on the dot’s distance from the center
+    const distances = positions.map((pos) => (
+      //make that wave an octagon instead of a circle
+      pos.length() + Math.cos(pos.angleTo(right) * 8) * 0.5
+    ));
+
+    return { vec, transform, positions, distances };
   }, []);
 
   useFrame(({ clock }) => {
-    const scale = 1 + Math.sin(clock.elapsedTime) * 0.3;
-
     for (let i = 0; i < 10000; ++i) {
-      vec.copy(positions[i]).multiplyScalar(scale);
+      const dist = distances[i];
+
+      // Distance affects the wave phase
+      // const t = clock.elapsedTime - dist / 12.5;
+      const t = clock.elapsedTime - dist / 25;
+
+      const f = 1 / 3.8;
+      // const smoothwave = smoothWave(t * f);
+      // const bubbleWave = smoothWave(2 * Math.PI * t * f);
+      // Oscillates between -0.4 and +0.4
+      const rollingWwave = roundedSquareWave(t, 0.15 + (0.2 * dist) / 72, 0.4, f);
+      // Scale initial position by our oscillator
+      vec.copy(positions[i]).multiplyScalar(rollingWwave + 1.3);
+
+      // Apply the Vector3 to a Matrix4
       transform.setPosition(vec);
+      // Update Matrix4 for this instance
       ref.current!.setMatrixAt(i, transform);
     }
 
     ref.current!.instanceMatrix.needsUpdate = true;
   });
+
+  // Read this article about post processing to understand what we've used here:
+  // https://threejsfundamentals.org/threejs/lessons/threejs-post-processing.html
 
   const goem = new THREE.CircleBufferGeometry(0.15);
   const mesh = new THREE.MeshBasicMaterial();
@@ -43,13 +77,16 @@ function Dots() {
   return (
     <instancedMesh ref={ref} args={[goem, mesh, 10000]} count={10000} />
   );
-}
+};
 
-export default function App() {
+const App = () => {
   return (
     <Canvas orthographic camera={{ zoom: 20 }} colorManagement={false}>
       <color attach="background" args={[0, 0, 0]} />
       <Dots />
+      <Effects />
     </Canvas>
   );
-}
+};
+
+export default App;

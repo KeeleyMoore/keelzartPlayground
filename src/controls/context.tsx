@@ -3,8 +3,9 @@ import React, { useContext } from 'react';
 export interface ControlsContextValue {
   title: string;
   setTitle: (title: string) => void;
-  controls?: JSX.Element[];
-  setControls: (controls?: JSX.Element[]) => void;
+  //TODO:: Create types for these control objects
+  controls?: any[];
+  setControls: (controls?: any[]) => void;
 }
 
 const ControlsContextDefaultValue = {} as ControlsContextValue;

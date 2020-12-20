@@ -1,4 +1,3 @@
-import { Slider } from '@material-ui/core';
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
@@ -98,15 +97,14 @@ const BreathingDots: FC = () => {
   const [tValue, setTValue] = useState<number | number[]>(25);
   const { setTitle, setControls } = useControlsContext();
 
-  const controls = [
-    <Slider
-      key="tSlider"
-      value={tValue}
-      min={1}
-      max={45}
-      onChange={(event, value) => setTValue(value)}
-    />
-  ];
+  const controls = [{
+    type: 'slider',
+    onChange: (event: any, value: number | number[]) => setTValue(value),
+    key: "tSlider",
+    value: tValue,
+    min: 1,
+    max: 45
+  }];
 
   useEffect(() => {
     setControls(controls);

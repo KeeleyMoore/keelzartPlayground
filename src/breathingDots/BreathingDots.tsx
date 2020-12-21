@@ -1,22 +1,23 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
-import { useControlsContext } from '../controls';
 import { streamEnumMetadata } from '../util/type';
+import { useBreathingDotsContext } from './context';
 import Effects from './Effects';
 
+export enum Waves {
+  smooth = 'smooth',
+  bubble = 'bubble',
+  roundedSquare = 'roundedSquare'
+}
+
+export const waveMetadata: Record<string, string> = { smooth: 'Smooth', bubble: 'Bubble', roundedSquare: 'Ripple' };
 // Smooth motion:
 const smoothWave = (sinValue: number) => Math.sin(sinValue);
 // Snappy Motion:
 const roundedSquareWave = (t: number, delta: number, a: number, f: number) => {
   return ((2 * a) / Math.PI) * Math.atan(smoothWave(2 * Math.PI * t * f) / delta);
 };
-
-enum Waves {
-  smooth = 'smooth',
-  bubble = 'bubble',
-  roundedSquare = 'roundedSquare'
-}
 
 const waveStyleMetadata: Record<string, (dist: number, t: number, f: number) => number> = {
   smooth: (t: number, f: number) => smoothWave(t * f),
@@ -25,8 +26,8 @@ const waveStyleMetadata: Record<string, (dist: number, t: number, f: number) => 
 };
 
 const waveMultiplyerValue = (t: number, f: number, type: keyof typeof Waves, dist: number,) => streamEnumMetadata(Waves, waveStyleMetadata).find(({ key }) => key === type)?.value(t, f, dist);
-
-const Dots: FC = () => {
+interface DotsProps { tValue: number, fValue: number, wave: keyof typeof Waves }
+const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
   const ref = useRef<THREE.InstancedMesh>();
 
   const { vec, transform, positions, distances } = useMemo(() => {
@@ -65,13 +66,13 @@ const Dots: FC = () => {
 
       // Distance affects the wave phase
       // const t = clock.elapsedTime - dist / 12.5;
-      const t = clock.elapsedTime - dist / 25;
-      const f = 1 / 3.8;
+      const t = clock.elapsedTime - dist / tValue;
+      const f = 1 / fValue;
 
       // Oscillates between -0.4 and +0.4
-      const wave = waveMultiplyerValue(t, f, 'bubble', dist);
+      const waveValue = waveMultiplyerValue(t, f, wave, dist);
       // Scale initial position by our oscillator
-      vec.copy(positions[i]).multiplyScalar(wave! + 1.3);
+      vec.copy(positions[i]).multiplyScalar(waveValue! + 1.3);
 
       // Apply the Vector3 to a Matrix4
       transform.setPosition(vec);
@@ -94,29 +95,12 @@ const Dots: FC = () => {
 };
 
 const BreathingDots: FC = () => {
-  const [tValue, setTValue] = useState<number | number[]>(25);
-  const { setTitle, setControls } = useControlsContext();
-
-  const controls = [{
-    type: 'slider',
-    onChange: (event: any, value: number | number[]) => setTValue(value),
-    key: "tSlider",
-    value: tValue,
-    min: 1,
-    max: 45
-  }];
-
-  useEffect(() => {
-    setControls(controls);
-    setTitle('Breathing Dots');
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
+  console.log(zoom);
   return (
-    <Canvas orthographic camera={{ zoom: 20 }} colorManagement={false}>
+    <Canvas orthographic camera={{ zoom }} colorManagement={false}>
       <color attach="background" args={[0, 0, 0]} />
-      <Dots />
+      <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
       <Effects />
     </Canvas>
   );

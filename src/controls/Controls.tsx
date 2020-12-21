@@ -1,8 +1,9 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles, Slider } from '@material-ui/core';
+import React, { FC } from 'react';
+import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useControlsContext } from './context';
+import { BreathingDotsControls } from '../breathingDots';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,8 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Controls = () => {
-  const { title, controls } = useControlsContext();
+const Controls: FC = () => {
+  const { title } = useControlsContext();
   const classes = useStyles();
 
   return (
@@ -27,23 +28,10 @@ const Controls = () => {
           {title}
         </Typography>
         <Box display="flex" flexGrow={2} />
-        {
-          controls &&
-          <Box flexGrow={1}>
 
-            {controls.map(({ type, onChange, key, value, min, max }) => {
-              return (
-                <Slider
-                  key={key}
-                  value={value}
-                  min={min}
-                  max={max}
-                  onChange={onChange}
-                />
-              );
-            })}
-          </Box>
-        }
+        <Box flexGrow={1} display="flex" alignItems="center">
+          <BreathingDotsControls />
+        </Box>
       </Toolbar>
     </AppBar>
   );

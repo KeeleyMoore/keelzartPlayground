@@ -93,8 +93,6 @@ const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
 interface CameraProps { zoom: number }
 const Camera: FC<CameraProps> = ({ zoom }) => {
   const camera = useRef();
-
-  console.log(zoom);
   const { setDefaultCamera } = useThree();
   // This makes sure that size-related calculations are proper
   // Every call to useThree will return this camera instead of the default camera

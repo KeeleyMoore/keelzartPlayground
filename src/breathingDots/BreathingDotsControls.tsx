@@ -11,7 +11,7 @@ export const TSliderControl: FC = () => {
   const { tSlider, setTSlider } = useBreathingDotsContext();
   return (
     <Box>
-      <Typography gutterBottom>T</Typography>
+      <Typography gutterBottom variant="subtitle2">T</Typography>
       <Slider
         valueLabelDisplay="auto"
         value={tSlider}
@@ -26,9 +26,8 @@ export const TSliderControl: FC = () => {
 export const FSliderControl: FC = () => {
   const { fSlider, setFSlider } = useBreathingDotsContext();
   return (
-
-    <Box>
-      <Typography gutterBottom>F</Typography>
+    <Box mb={2}>
+      <Typography gutterBottom variant="subtitle2">F</Typography>
       <Slider
         valueLabelDisplay="auto"
         value={fSlider}
@@ -45,10 +44,10 @@ export const WaveSelect: FC = () => {
   const { wave, setWave } = useBreathingDotsContext();
 
   return (
-    <FormControl margin="normal">
-      <InputLabel id="wave-select-label">Wave Type</InputLabel>
+    <Box mb={2}>
+      <Typography gutterBottom variant="subtitle2">Wave Type</Typography>
       <Select
-        labelId="wave-select-label"
+        fullWidth
         label="Wave"
         value={wave}
         onChange={(event) => setWave(event.target.value as keyof typeof Waves)}
@@ -57,17 +56,17 @@ export const WaveSelect: FC = () => {
           <MenuItem key={wave} value={wave}>{label}</MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </Box>
   );
 };
 export const WavePresetSelect: FC = () => {
   const { setPreset } = useBreathingDotsContext();
 
   return (
-    <FormControl margin="normal">
-      <InputLabel id="wave-preset-select-label">Wave Presets</InputLabel>
+    <Box mb={2}>
+      <Typography gutterBottom variant="subtitle2">Wave Presets</Typography>
       <Select
-        labelId="wave-preset-select-label"
+        fullWidth
         label="Wave"
         defaultValue=""
         onChange={(event) => setPreset(presets[event.target.value as keyof typeof presets] as WavePreset)}
@@ -79,15 +78,15 @@ export const WavePresetSelect: FC = () => {
           );
         })}
       </Select>
-    </FormControl>
+    </Box>
   );
 };
+interface ZoomSliderControlProps { zoom: number, setZoom: (zoom: number) => void }
+export const ZoomSliderControl: FC<ZoomSliderControlProps> = ({ zoom, setZoom }) => {
 
-export const ZoomSliderControl: FC = () => {
-  const { zoom, setZoom } = useBreathingDotsContext();
   return (
     <Box>
-      <Typography gutterBottom>Zoom</Typography>
+      <Typography gutterBottom variant="subtitle2">Zoom</Typography>
       <Slider
         valueLabelDisplay="auto"
         value={zoom}
@@ -99,38 +98,39 @@ export const ZoomSliderControl: FC = () => {
   );
 };
 
-export const CopyInputValues = () => {
+const CopyInputValues = (inputValues: string) => {
+  let element = document.createElement("input");
+  element.setAttribute("value", inputValues);
+  document.body.appendChild(element);
+  element.select();
+  document.execCommand("copy");
+  document.body.removeChild(element);
 
-  const { zoom, fSlider, tSlider, wave } = useBreathingDotsContext();
-  const inputsJson = JSON.stringify({
+};
+
+const BreathingDotsControls: FC = () => {
+  const { zoom, setZoom, fSlider, tSlider, wave } = useBreathingDotsContext();
+  const getInputValues = () => JSON.stringify({
     "zoom": zoom,
     "f": fSlider,
     "t": tSlider,
     "wave": wave,
     "label": ""
   });
-  let element = document.createElement("input");
-  element.setAttribute("value", inputsJson);
-  document.body.appendChild(element);
-  element.select();
-  document.execCommand("copy");
-  document.body.removeChild(element);
+
   return (
-    <Button>
-      Copy Inputs
-    </Button>
+    <Box mx={3} my={1} display="flex" flexDirection="column">
+      <Typography gutterBottom>Breathing Dots Controls</Typography>
+      <ZoomSliderControl zoom={zoom} setZoom={setZoom} />
+      <WaveSelect />
+      <TSliderControl />
+      <FSliderControl />
+      <WavePresetSelect />
+      <Button onClick={() => CopyInputValues(getInputValues())}>
+        Copy Inputs
+      </Button>
+    </Box>
   );
 };
-
-const BreathingDotsControls: FC = () => (
-  <Box mx={3} display="flex" flexDirection="column">
-    <ZoomSliderControl />
-    <WaveSelect />
-    <TSliderControl />
-    <FSliderControl />
-    <WavePresetSelect />
-    <CopyInputValues />
-  </Box>
-);
 
 export default BreathingDotsControls;

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import {
@@ -12,6 +12,7 @@ import {
   MenuItem,
   ListItemIcon,
   ListItemText,
+  Box,
 } from '@material-ui/core';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -63,6 +64,7 @@ interface SidebarProps extends SidebarStyleProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
+  const [selected, setSelected] = useState();
   const classes = useStyles({ open });
   const theme = useTheme();
   const { location: { pathname } } = useHistory();
@@ -100,7 +102,6 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
           </ListItemIcon>
           <ListItemText>Breathing Dots</ListItemText>
         </MenuItem>
-        {breathingDotsSelected && <BreathingDotsControls />}
         <Divider />
         <MenuItem className={classes.menuItem} component={Link} to="/test">
           <ListItemIcon>
@@ -109,6 +110,9 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
           <ListItemText></ListItemText>
         </MenuItem>
       </MenuList>
+      <Box flexGrow={1} />
+      <Divider />
+      {breathingDotsSelected && <BreathingDotsControls />}
     </Drawer>
   );
 };

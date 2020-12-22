@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -19,6 +19,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { BreathingDotsControls } from '../breathingDots';
 
 interface SidebarStyleProps {
   open: boolean;
@@ -64,6 +65,9 @@ interface SidebarProps extends SidebarStyleProps {
 const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
   const classes = useStyles({ open });
   const theme = useTheme();
+  const { location: { pathname } } = useHistory();
+  const breathingDotsSelected = pathname.startsWith('/breathing_dots');
+  console.log(breathingDotsSelected);
 
   return (
     <Drawer
@@ -90,12 +94,13 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       </div>
       <Divider />
       <MenuList className={classes.menuRoot}>
-        <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots">
+        <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={pathname.startsWith('/breathing_dots/')}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText>Home</ListItemText>
+          <ListItemText>Breathing Dots</ListItemText>
         </MenuItem>
+        {breathingDotsSelected && <BreathingDotsControls />}
         <Divider />
         <MenuItem className={classes.menuItem} component={Link} to="/test">
           <ListItemIcon>

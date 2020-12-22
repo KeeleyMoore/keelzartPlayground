@@ -4,7 +4,15 @@ import { ControlsContext } from "./context";
 const ControlsProvider: FC = ({ children }) => {
 
   return (
-    <ControlsContext.Provider value={{}}>
+    <ControlsContext.Provider
+      value={{
+        recordControls: {
+          duration: 21,
+          fps: 25,
+          filename: 'breathingDots'
+        }
+      }}
+    >
       {children}
     </ControlsContext.Provider>
   );

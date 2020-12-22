@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 
 export interface ControlsContextValue {
+  recordControls: {
+    duration: number;
+    fps: number;
+    filename: string;
+  }
 }
 
 const ControlsContextDefaultValue = {} as ControlsContextValue;

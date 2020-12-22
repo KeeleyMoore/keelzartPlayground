@@ -6,12 +6,7 @@ import useCapture from 'use-capture';
 import { streamEnumMetadata } from '../util/type';
 import { useBreathingDotsContext } from './context';
 import Effects from './Effects';
-
-export enum Waves {
-  smooth = 'smooth',
-  bubble = 'bubble',
-  roundedSquare = 'roundedSquare'
-}
+import { Waves } from './types';
 
 export const waveMetadata: Record<string, string> = { smooth: 'Smooth', bubble: 'Bubble', roundedSquare: 'Ripple' };
 // Smooth motion:
@@ -113,6 +108,10 @@ const Camera: FC<CameraProps> = ({ zoom }) => {
 const BreathingDots: FC = () => {
   const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
   const [bind, startRecording] = useCapture({ duration: 21, fps: 25, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
+
+  useEffect(() => {
+    console.log('updated');
+  }, [bind, startRecording]);
 
   return (
     <>

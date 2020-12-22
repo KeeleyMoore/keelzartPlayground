@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles } fro
 import { makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useInterfaceContext } from './context';
-import { BreathingDotsControls } from '../breathingDots';
 import clsx from 'clsx';
 import Sidebar from './Sidebar';
 
@@ -53,7 +52,6 @@ const Interface: FC = () => {
           </Typography>
           <Box display="flex" flexGrow={2} />
           <Box flexGrow={1} display="flex" alignItems="center">
-            <BreathingDotsControls />
           </Box>
         </Toolbar>
       </AppBar>

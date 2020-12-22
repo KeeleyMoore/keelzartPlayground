@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Waves } from './BreathingDots';
+import { Waves, WavePreset } from './types';
 
 export interface BreathingDotsContextValue {
   tSlider: number;
@@ -10,6 +10,8 @@ export interface BreathingDotsContextValue {
   setWave: (wave: keyof typeof Waves) => void;
   zoom: number;
   setZoom: (zoom: number) => void;
+  preset: WavePreset;
+  setPreset: (preset: WavePreset) => void;
 }
 
 const BreathingDotsContextDefaultValue = {} as BreathingDotsContextValue;

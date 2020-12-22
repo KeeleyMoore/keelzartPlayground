@@ -1,0 +1,16 @@
+{
+  "default": {
+    "t": 25,
+    "f": 3.8,
+    "zoom": 20,
+    "wave": "roundedSquare",
+    "label": "Breathing Dots"
+  },
+  "rollingBubble": {
+    "t": 12,
+    "f": 0.5,
+    "zoom": 10,
+    "wave": "smooth",
+    "label": "Rolling Bubble"
+  }
+}

@@ -1,6 +1,8 @@
+import { Button } from '@material-ui/core';
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
+import useCapture from 'use-capture';
 import { streamEnumMetadata } from '../util/type';
 import { useBreathingDotsContext } from './context';
 import Effects from './Effects';
@@ -110,14 +112,26 @@ const Camera: FC<CameraProps> = ({ zoom }) => {
 
 const BreathingDots: FC = () => {
   const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
+  const [bind, startRecording] = useCapture({ duration: 4, fps: 60, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
+
   return (
-    <Canvas colorManagement={false}>
-      <Camera zoom={zoom} />
-      {/* <orthographicCamera zoom={20} position={[0, 0, 5]} /> */}
-      <color attach="background" args={[0, 0, 0]} />
-      <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
-      <Effects />
-    </Canvas>
+    <>
+      <Canvas
+        colorManagement={false}
+        gl={{
+          preserveDrawingBuffer: true,
+        }}
+        onCreated={bind}
+      >
+        <Camera zoom={zoom} />
+        <color attach="background" args={[0, 0, 0]} />
+        <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
+        <Effects />
+      </Canvas>
+      <Button onClick={startRecording}>
+        Click me
+      </Button>
+    </>
   );
 };
 

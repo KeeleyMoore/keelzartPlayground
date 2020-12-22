@@ -26,7 +26,7 @@ export const FSliderControl: FC = () => {
     <Box width={200} mx={1}>
       <Slider
         value={fSlider}
-        step={0.5}
+        step={0.1}
         min={0.1}
         max={8}
         marks={[{ value: 3.8, label: 'default' }]}

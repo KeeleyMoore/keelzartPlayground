@@ -19,7 +19,7 @@ const BreathingDotsProvider: FC = ({ children }) => {
         wave,
         setWave,
         zoom,
-        setZoom
+        setZoom,
       }}
     >
       {children}

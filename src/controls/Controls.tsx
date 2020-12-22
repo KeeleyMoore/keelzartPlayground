@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useControlsContext } from './context';
 import { BreathingDotsControls } from '../breathingDots';
+import { useBreathingDotsContext } from '../breathingDots/context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,7 +29,6 @@ const Controls: FC = () => {
           {title}
         </Typography>
         <Box display="flex" flexGrow={2} />
-
         <Box flexGrow={1} display="flex" alignItems="center">
           <BreathingDotsControls />
         </Box>

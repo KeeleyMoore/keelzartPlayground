@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useInterfaceContext } from './context';
 import { BreathingDotsControls } from '../breathingDots';
 import clsx from 'clsx';
+import Sidebar from './Sidebar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,6 +57,7 @@ const Interface: FC = () => {
           </Box>
         </Toolbar>
       </AppBar>
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>
   );
 };

@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
+
 import theme from './theme';
 import { BreathingDots, BreathingDotsProvider } from './breathingDots';
 import { ControlsProvider } from './controls';
@@ -9,12 +11,21 @@ const App: FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-
       <InterfaceProvider>
         <ControlsProvider>
           <BreathingDotsProvider>
-            <Interface />
-            <BreathingDots />
+            <Router>
+              <Interface />
+              <Switch>
+                <Route exact path="/breathing_dots">
+                  <BreathingDots />
+                </Route>
+                <Route exact path="/test">
+                  <div>testing</div>
+                </Route>
+                <Redirect to="/breathing_dots" />
+              </Switch>
+            </Router>
           </BreathingDotsProvider>
         </ControlsProvider >
       </InterfaceProvider>

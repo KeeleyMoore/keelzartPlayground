@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: theme.spacing(6) + 1,
+    width: 0,
   },
   toolbar: {
     display: 'flex',
@@ -52,6 +53,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     // needed for content to be below app bar
     ...theme.mixins.toolbar,
   },
+  menuRoot: { padding: 0 },
+  menuItem: { paddingLeft: theme.spacing(1.5) },
 }));
 
 interface SidebarProps extends SidebarStyleProps {
@@ -86,15 +89,15 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
         </IconButton>
       </div>
       <Divider />
-      <MenuList>
-        <MenuItem >
+      <MenuList className={classes.menuRoot}>
+        <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots">
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText>Home</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem className={classes.menuItem} component={Link} to="/test">
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>

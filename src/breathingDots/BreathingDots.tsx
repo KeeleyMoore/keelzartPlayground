@@ -112,7 +112,7 @@ const Camera: FC<CameraProps> = ({ zoom }) => {
 
 const BreathingDots: FC = () => {
   const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
-  const [bind, startRecording] = useCapture({ duration: 13, fps: 25, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
+  const [bind, startRecording] = useCapture({ duration: 21, fps: 25, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
 
   return (
     <>

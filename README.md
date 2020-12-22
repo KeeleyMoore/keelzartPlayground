@@ -6,3 +6,4 @@
 
 ![](./public/Ripple.gif)
 ![](./public/BubbleLoop.gif)
+![](./public/BreathingDots-SlowBubble(doublespeed).gif)

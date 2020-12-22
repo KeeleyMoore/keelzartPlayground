@@ -1,13 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { ControlsContext } from "./context";
 
 const ControlsProvider: FC = ({ children }) => {
 
   return (
-    <ControlsContext.Provider
-      value={{
-      }}
-    >
+    <ControlsContext.Provider value={{}}>
       {children}
     </ControlsContext.Provider>
   );

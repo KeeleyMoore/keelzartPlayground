@@ -5,20 +5,6 @@ import { useBreathingDotsContext } from "./context";
 import { waveMetadata, Waves } from './BreathingDots';
 import { streamEnumMetadata } from "../util/type";
 
-export const ZoomSliderControl: FC = () => {
-  const { zoom, setZoom } = useBreathingDotsContext();
-  return (
-    <Box width={200} mx={1}>
-      <Slider
-        value={zoom}
-        min={1}
-        max={20}
-        marks={[{ value: 20, label: 'default' }]}
-        onChange={(event, value) => setZoom(value as number)}
-      />
-    </Box>
-  );
-};
 export const TSliderControl: FC = () => {
   const { tSlider, setTSlider } = useBreathingDotsContext();
   return (
@@ -33,6 +19,7 @@ export const TSliderControl: FC = () => {
     </Box>
   );
 };
+
 export const FSliderControl: FC = () => {
   const { fSlider, setFSlider } = useBreathingDotsContext();
   return (
@@ -62,6 +49,21 @@ export const WaveSelect: FC = () => {
           <MenuItem key={wave} value={wave}>{label}</MenuItem>
         ))}
       </Select>
+    </Box>
+  );
+};
+
+export const ZoomSliderControl: FC = () => {
+  const { zoom, setZoom } = useBreathingDotsContext();
+  return (
+    <Box width={200} mx={1}>
+      <Slider
+        value={zoom}
+        min={2}
+        max={20}
+        marks={[{ value: 20, label: 'default' }]}
+        onChange={(event, value) => setZoom(value as number)}
+      />
     </Box>
   );
 };

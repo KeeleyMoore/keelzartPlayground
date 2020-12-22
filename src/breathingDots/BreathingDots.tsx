@@ -1,5 +1,5 @@
-import React, { FC, useMemo, useRef } from 'react';
-import { Canvas, useFrame } from 'react-three-fiber';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
+import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { streamEnumMetadata } from '../util/type';
 import { useBreathingDotsContext } from './context';
@@ -93,12 +93,27 @@ const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
     <instancedMesh ref={ref} args={[goem, mesh, 10000]} count={10000} />
   );
 };
+interface CameraProps { zoom: number }
+const Camera: FC<CameraProps> = ({ zoom }) => {
+  const camera = useRef();
+
+  console.log(zoom);
+  const { setDefaultCamera } = useThree();
+  // This makes sure that size-related calculations are proper
+  // Every call to useThree will return this camera instead of the default camera
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => void setDefaultCamera(camera.current!), []);
+  return (
+    <orthographicCamera zoom={zoom} position={[0, 0, 5]} ref={camera} onUpdate={self => self.updateProjectionMatrix()} />
+  );
+};
 
 const BreathingDots: FC = () => {
   const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
-  console.log(zoom);
   return (
-    <Canvas orthographic camera={{ zoom }} colorManagement={false}>
+    <Canvas colorManagement={false}>
+      <Camera zoom={zoom} />
+      {/* <orthographicCamera zoom={20} position={[0, 0, 5]} /> */}
       <color attach="background" args={[0, 0, 0]} />
       <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
       <Effects />

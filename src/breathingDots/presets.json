@@ -6,11 +6,32 @@
     "wave": "roundedSquare",
     "label": "Breathing Dots"
   },
-  "rollingBubble": {
+  "bubbleO": {
     "t": 12,
     "f": 0.5,
     "zoom": 10,
     "wave": "smooth",
-    "label": "Rolling Bubble"
+    "label": "Bubble O"
+  },
+  "rippleMeTimbers": {
+    "zoom": 6,
+    "f": 4.2,
+    "t": 8,
+    "wave": "roundedSquare",
+    "label": "Ripple Me Timbers"
+  },
+  "invertedJellyfish": {
+    "zoom": 6,
+    "f": 7.3,
+    "t": 8,
+    "wave": "bubble",
+    "label": "Inverted Jellyfish"
+  },
+  "fallingTunnel": {
+    "zoom": 10,
+    "f": 5.4,
+    "t": 1,
+    "wave": "smooth",
+    "label": "Falling Tunnel"
   }
 }

@@ -104,8 +104,8 @@ export const CopyInputValues = () => {
   const { zoom, fSlider, tSlider, wave } = useBreathingDotsContext();
   const inputsJson = JSON.stringify({
     "zoom": zoom,
-    "fSlider": fSlider,
-    "tSlider": tSlider,
+    "f": fSlider,
+    "t": tSlider,
     "wave": wave,
     "label": ""
   });

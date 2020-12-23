@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
@@ -20,7 +20,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { BreathingDotsControls } from '../breathingDots';
+import { BreathingDotsControls } from '../scenes/breathingDots';
 
 interface SidebarStyleProps {
   open: boolean;

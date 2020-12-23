@@ -29,7 +29,7 @@ function createGeometry() {
 
     vertices.push(vertex.x, vertex.y, 0);
 
-    vertex.multiplyScalar(Math.random() * 0.09 + 0.6);
+    vertex.multiplyScalar(Math.random() * 0.09 + 0.1);
 
     vertices.push(vertex.x, vertex.y, vertex.z);
 

@@ -87,9 +87,10 @@ const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
   const mesh = new THREE.MeshBasicMaterial();
 
   return (
-    <instancedMesh ref={ref} args={[goem, mesh, 10000]} count={10000} />
+    <instancedMesh ref={ref} args={[goem, mesh, 10000]} />
   );
 };
+
 interface CameraProps { zoom: number }
 const Camera: FC<CameraProps> = ({ zoom }) => {
   const camera = useRef();
@@ -106,10 +107,6 @@ const Camera: FC<CameraProps> = ({ zoom }) => {
 const BreathingDots: FC = () => {
   const { tSlider, fSlider, wave, zoom } = useBreathingDotsContext();
   const [bind, startRecording] = useCapture({ duration: 21, fps: 25, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
-
-  useEffect(() => {
-    console.log('updated');
-  }, [bind, startRecording]);
 
   return (
     <>

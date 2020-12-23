@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Slider, Typography } from "@material-ui/core";
+import { Box, Button, MenuItem, Select, Slider, Typography } from "@material-ui/core";
 
 import { useBreathingDotsContext } from "./context";
 import { waveMetadata } from './BreathingDots';
 import { WavePreset, Waves } from './types';
-import { streamEnumMetadata } from "../util/type";
+import { streamEnumMetadata, CopyInputValues } from "../util";
 import presets from './presets.json';
 
 export const TSliderControl: FC = () => {
@@ -96,16 +96,6 @@ export const ZoomSliderControl: FC<ZoomSliderControlProps> = ({ zoom, setZoom })
       />
     </Box>
   );
-};
-
-const CopyInputValues = (inputValues: string) => {
-  let element = document.createElement("input");
-  element.setAttribute("value", inputValues);
-  document.body.appendChild(element);
-  element.select();
-  document.execCommand("copy");
-  document.body.removeChild(element);
-
 };
 
 const BreathingDotsControls: FC = () => {

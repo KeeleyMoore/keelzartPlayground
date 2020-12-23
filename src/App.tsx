@@ -6,6 +6,7 @@ import theme from './theme';
 import { BreathingDots, BreathingDotsProvider } from './breathingDots';
 import { ControlsProvider } from './controls';
 import { InterfaceProvider, Interface } from './interface';
+import { Lines } from './Lines';
 
 const App: FC = () => {
 
@@ -20,8 +21,8 @@ const App: FC = () => {
                 <Route exact path="/breathing_dots">
                   <BreathingDots />
                 </Route>
-                <Route exact path="/test">
-                  <div>testing</div>
+                <Route exact path="/lines">
+                  <Lines />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
   makeStyles,
@@ -64,12 +64,15 @@ interface SidebarProps extends SidebarStyleProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
-  const [selected, setSelected] = useState();
   const classes = useStyles({ open });
   const theme = useTheme();
-  const { location: { pathname } } = useHistory();
-  const breathingDotsSelected = pathname.startsWith('/breathing_dots');
-  console.log(breathingDotsSelected);
+  const location = useLocation();
+  console.log(location);
+  const breathingDotsSelected = location.pathname.startsWith('/breathing_dots');
+
+  useEffect(() => {
+    console.log(location.pathname);
+  }, [location]);
 
   return (
     <Drawer
@@ -96,18 +99,18 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       </div>
       <Divider />
       <MenuList className={classes.menuRoot}>
-        <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={pathname.startsWith('/breathing_dots/')}>
+        <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={location.pathname.startsWith('/breathing_dots/')}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText>Breathing Dots</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem className={classes.menuItem} component={Link} to="/test">
+        <MenuItem className={classes.menuItem} component={Link} to="/lines">
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>
-          <ListItemText></ListItemText>
+          <ListItemText>Lines</ListItemText>
         </MenuItem>
       </MenuList>
       <Box flexGrow={1} />

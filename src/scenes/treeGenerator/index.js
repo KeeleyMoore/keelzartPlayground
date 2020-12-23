@@ -9,7 +9,7 @@ export class TreeGenerator extends Component {
 
     this.numInputChange = this.numInputChange.bind(this);
     this.giveMeATree = this.giveMeATree.bind(this);
- 
+
     this.state = {
       depth: 12,
       length: 6.6,
@@ -64,15 +64,15 @@ export class TreeGenerator extends Component {
         value = max;
       }
 
-      this.setState({[id]: value });
+      this.setState({ [id]: value });
     }
   }
 
   giveMeATree() {
     this.setState(state => {
-      return { 
+      return {
         treesGenerated: state.treesGenerated++
-      }
+      };
     });
   }
 
@@ -176,7 +176,7 @@ export class TreeGenerator extends Component {
 //       random((startPoint[0]), startPoint[0] + heightSegment),
 //       random(startPoint[1] - widthSegment, startPoint[1] - widthSegment)
 //     );
-    
+
 //     return (
 //       <Line
 //         points={linePointArray}

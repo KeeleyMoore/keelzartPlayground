@@ -3,7 +3,7 @@ import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import useCapture from 'use-capture';
-import { streamEnumMetadata } from '../util/type';
+import { streamEnumMetadata } from '../../util/type';
 import { useBreathingDotsContext } from './context';
 import Effects from './Effects';
 import { Waves } from './types';

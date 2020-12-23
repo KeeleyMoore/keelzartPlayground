@@ -4,7 +4,7 @@ import { Box, Button, MenuItem, Select, Slider, Typography } from "@material-ui/
 import { useBreathingDotsContext } from "./context";
 import { waveMetadata } from './BreathingDots';
 import { WavePreset, Waves } from './types';
-import { streamEnumMetadata, CopyInputValues } from "../util";
+import { streamEnumMetadata, CopyInputValues } from "../../util";
 import presets from './presets.json';
 
 export const TSliderControl: FC = () => {

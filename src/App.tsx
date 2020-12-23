@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { ThemeProvider } from '@material-ui/core';
 
 import theme from './theme';
-import { BreathingDots, BreathingDotsProvider } from './breathingDots';
+import { BreathingDots, BreathingDotsProvider } from './scenes/breathingDots';
 import { ControlsProvider } from './controls';
 import { InterfaceProvider, Interface } from './interface';
-import { Lines } from './Lines';
+import { Lines } from './scenes/lines';
+import Kotch from './scenes/fractals/kotch/Kotch';
 
 const App: FC = () => {
 
@@ -23,6 +24,9 @@ const App: FC = () => {
                 </Route>
                 <Route exact path="/lines">
                   <Lines />
+                </Route>
+                <Route exact path="/kotch">
+                  <Kotch />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

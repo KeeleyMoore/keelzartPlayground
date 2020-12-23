@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { Box, Button } from '@material-ui/core';
-import { Canvas, useFrame, useThree } from 'react-three-fiber';
+import { Canvas, useThree } from 'react-three-fiber';
 import useCapture from 'use-capture';
 import * as THREE from 'three';
 
@@ -45,16 +45,14 @@ const Line: FC = () => {
   const ref = useRef<THREE.InstancedMesh>();
   const geometry = createGeometry();
 
-  // const material = new THREE.LineBasicMaterial({ color: 0xff7700, opacity: 1 });
-  // const line = new THREE.LineSegments(geometry, material);
-  // line.scale.x = line.scale.y = line.scale.z = 0.25;
-  // line.userData.originalScale = 0.25;
-  // line.rotation.y = Math.random() * Math.PI;
-  // line.updateMatrix();
-
-  console.log(ref);
   return (
-    <lineSegments ref={ref} scale={[0.5, 0.5, 0.5]} geometry={geometry}>
+    <lineSegments
+      ref={ref}
+      scale={[0.5, 0.5, 0.5]}
+      geometry={geometry}
+      userData={{ originalScale: 0.25 }}
+      rotation={[0, Math.random() * Math.PI, 0]}
+    >
       <lineBasicMaterial color={0xff7700} opacity={1} />
     </lineSegments>
   );

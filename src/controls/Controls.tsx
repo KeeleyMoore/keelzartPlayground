@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { BreathingDotsControls } from '../breathingDots';
+import { BreathingDotsControls } from '../scenes/breathingDots';
 
 const Controls: FC = () => {
   return (

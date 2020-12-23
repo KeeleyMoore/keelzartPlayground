@@ -33,7 +33,7 @@ export class KotchCurve extends Component {
         min: 10,
         step: 10
       }]
-    }
+    };
   }
 
   numInputChange(event) {
@@ -77,6 +77,6 @@ export class KotchCurve extends Component {
           startLength={(100 - startLength) / 2}
         />
       </CanvasTemplatePageInput>
-    )
+    );
   }
 }

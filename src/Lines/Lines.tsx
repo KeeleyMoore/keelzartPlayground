@@ -13,22 +13,23 @@ function createGeometry() {
 
   for (let i = 0; i < 1500; i++) {
     const pi = Math.PI;
-    const piX = pi / (i + 100);
-    // if (!(i % 15)) {
-    //   console.log()
-    // }
+    const piX = ((pi / 1500));
+    if (!(i % 15)) {
+      console.log(piX);
+      console.log(Math.cos(i));
+    }
+    // console.log(piX);
+    // console.log(Math.random() * 2 - 1);
     vertex.x = Math.random() * 2 - 1;
     vertex.y = Math.random() * 2 - 1;
     vertex.z = Math.random() * 2 - 1;
-    // vertex.x = Math.random() * 2 - 1;
-    // vertex.y = Math.random() * 2 - 1;
-    // vertex.z = Math.random() * 2 - 1;
+
     vertex.normalize();
     vertex.multiplyScalar(450);
 
-    vertices.push(vertex.x, vertex.y, vertex.z);
+    vertices.push(vertex.x, vertex.y, 0);
 
-    vertex.multiplyScalar(Math.random() * 0.09 + 1);
+    vertex.multiplyScalar(Math.random() * 0.09 + 0.6);
 
     vertices.push(vertex.x, vertex.y, vertex.z);
 

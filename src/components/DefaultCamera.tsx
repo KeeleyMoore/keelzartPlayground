@@ -2,7 +2,11 @@ import React, { FC, useRef, useEffect } from "react";
 import { useThree } from "react-three-fiber";
 
 export interface CameraProps { zoom: number, position?: [x: number, y: number, z: number] }
-export const Camera: FC<CameraProps> = ({ zoom, position = [0, 0, 5] }) => {
+export const Camera: FC<CameraProps> = ({ zoom, position }) => {
+  const { viewport } = useThree();
+  if (!position) {
+    position = [(viewport.width / 2), (viewport.height / 2), 5];
+  }
   const camera = useRef();
   const { setDefaultCamera } = useThree();
   // This makes sure that size-related calculations are proper

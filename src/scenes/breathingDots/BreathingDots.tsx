@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
+import { Camera } from '../../components/DefaultCamera';
 
 import { useControlsContext } from '../../controls';
 import { streamEnumMetadata } from '../../util/type';
@@ -88,19 +89,6 @@ const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
 
   return (
     <instancedMesh ref={ref} args={[goem, mesh, 10000]} />
-  );
-};
-
-interface CameraProps { zoom: number }
-const Camera: FC<CameraProps> = ({ zoom }) => {
-  const camera = useRef();
-  const { setDefaultCamera } = useThree();
-  // This makes sure that size-related calculations are proper
-  // Every call to useThree will return this camera instead of the default camera
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => void setDefaultCamera(camera.current!), []);
-  return (
-    <orthographicCamera zoom={zoom} position={[0, 0, 5]} ref={camera} onUpdate={self => self.updateProjectionMatrix()} />
   );
 };
 

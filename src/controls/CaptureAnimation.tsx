@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { useControlsContext } from '.';
 
 const CaptureAnimation: FC = () => {
-  const { captureControls: { startRecording, captureEnabled } } = useControlsContext();
+  const { captureControls: { startRecording, state: { captureEnabled } } } = useControlsContext();
 
   return captureEnabled ? (
     <Box position="absolute" bottom={0} right={0}>

@@ -1,7 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { Box, Button } from '@material-ui/core';
 import { Canvas } from 'react-three-fiber';
-import useCapture from 'use-capture';
 import * as THREE from 'three';
 import { Camera } from '../../components/DefaultCamera';
 import { useControlsContext } from '../../controls';
@@ -71,7 +69,7 @@ const Lines: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={1} />
+      <Camera zoom={1} position={[0, 0, 5]} />
       <Line />
       <color attach="background" args={[0, 0, 0]} />
     </Canvas>

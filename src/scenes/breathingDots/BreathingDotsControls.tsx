@@ -40,6 +40,23 @@ export const FSliderControl: FC = () => {
   );
 };
 
+export const ZoomSliderControl: FC = () => {
+
+  const {  zoom, setZoom  } = useBreathingDotsContext();
+  return (
+    <Box>
+      <Typography gutterBottom variant="subtitle2">Zoom</Typography>
+      <Slider
+        valueLabelDisplay="auto"
+        value={zoom}
+        min={2}
+        max={20}
+        onChange={(event, value) => setZoom(value as number)}
+      />
+    </Box>
+  );
+};
+
 export const WaveSelect: FC = () => {
   const { wave, setWave } = useBreathingDotsContext();
 
@@ -81,25 +98,9 @@ export const WavePresetSelect: FC = () => {
     </Box>
   );
 };
-interface ZoomSliderControlProps { zoom: number, setZoom: (zoom: number) => void }
-export const ZoomSliderControl: FC<ZoomSliderControlProps> = ({ zoom, setZoom }) => {
-
-  return (
-    <Box>
-      <Typography gutterBottom variant="subtitle2">Zoom</Typography>
-      <Slider
-        valueLabelDisplay="auto"
-        value={zoom}
-        min={2}
-        max={20}
-        onChange={(event, value) => setZoom(value as number)}
-      />
-    </Box>
-  );
-};
 
 const BreathingDotsControls: FC = () => {
-  const { zoom, setZoom, fSlider, tSlider, wave } = useBreathingDotsContext();
+  const { zoom, fSlider, tSlider, wave } = useBreathingDotsContext();
   const getInputValues = () => JSON.stringify({
     "zoom": zoom,
     "f": fSlider,
@@ -111,7 +112,7 @@ const BreathingDotsControls: FC = () => {
   return (
     <Box mx={3} my={1} display="flex" flexDirection="column">
       <Typography gutterBottom>Breathing Dots Controls</Typography>
-      <ZoomSliderControl zoom={zoom} setZoom={setZoom} />
+      <ZoomSliderControl />
       <WaveSelect />
       <TSliderControl />
       <FSliderControl />

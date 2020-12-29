@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useMemo, useRef } from 'react';
-import { Canvas, useFrame, useThree } from 'react-three-fiber';
+import React, { FC, useMemo, useRef } from 'react';
+import { Canvas, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
 import { Camera } from '../../components/DefaultCamera';
 
@@ -104,7 +104,7 @@ const BreathingDots: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={zoom} />
+      <Camera zoom={zoom} position={[0, 0, 5]} />
       <color attach="background" args={[0, 0, 0]} />
       <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
       <Effects />

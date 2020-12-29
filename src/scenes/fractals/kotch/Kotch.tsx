@@ -67,7 +67,7 @@ const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) =>
 
 const DrawKotchCurve: FC = () => {
   const { viewport } = useThree();
-  const depth = 8;
+  const depth = 7;
   const alpha = Math.PI / 3;
 
   const x1 = (viewport.width / 100) * 3 - 10;

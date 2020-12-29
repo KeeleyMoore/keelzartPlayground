@@ -1,9 +1,8 @@
-import { Box, Button } from '@material-ui/core';
 import React, { FC } from 'react';
 import { Canvas, useThree, useUpdate } from 'react-three-fiber';
 import { Vector2 } from 'three';
-import useCapture from 'use-capture';
 import { Camera } from '../../../components/DefaultCamera';
+import { useControlsContext } from '../../../controls';
 interface LinesProps {
   x1: number;
   x2: number;
@@ -41,8 +40,9 @@ const CurveOrLine: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha
 };
 
 const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) => {
-
-  if (currentDept === depth) {
+  const toSmallToSplit = (Math.abs(x1 - x2)) < 0 && currentDept !== 0;
+  // const toSmallToSplit = ((Math.abs(x1 - x2)) < 1 || (Math.abs(y1 - y2)) < 1) && currentDept !== 0;
+  if (currentDept === depth || toSmallToSplit) {
     return <Line x1={x1} x2={x2} y1={y1} y2={y2} />;
   }
 
@@ -67,7 +67,7 @@ const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) =>
 
 const DrawKotchCurve: FC = () => {
   const { viewport } = useThree();
-  const depth = 5;
+  const depth = 8;
   const alpha = Math.PI / 3;
 
   const x1 = (viewport.width / 100) * 3 - 10;
@@ -81,27 +81,20 @@ const DrawKotchCurve: FC = () => {
 };
 
 const Kotch: FC = () => {
-  const [bind, startRecording] = useCapture({ duration: 21, fps: 25, filename: 'breathingDots', framerate: 60, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: true, children: undefined });
+  const { captureControls: { bind } } = useControlsContext();
 
   return (
-    <>
-      <Canvas
-        colorManagement={false}
-        gl={{
-          preserveDrawingBuffer: true,
-        }}
-        onCreated={bind}
-      >
-        <Camera zoom={1} />
-        <color attach="background" args={[0, 0, 0]} />
-        <DrawKotchCurve />
-      </Canvas>
-      <Box position="absolute" bottom={0}>
-        <Button onClick={startRecording} color="secondary">
-          Record
-        </Button>
-      </Box>
-    </>
+    <Canvas
+      colorManagement={false}
+      gl={{
+        preserveDrawingBuffer: true,
+      }}
+      onCreated={bind}
+    >
+      <Camera zoom={1} />
+      <color attach="background" args={[0, 0, 0]} />
+      <DrawKotchCurve />
+    </Canvas>
   );
 };
 

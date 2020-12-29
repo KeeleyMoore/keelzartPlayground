@@ -20,7 +20,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { BreathingDotsControls } from '../scenes/breathingDots';
+import { Controls } from '../controls';
 
 interface SidebarStyleProps {
   open: boolean;
@@ -67,12 +67,10 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
   const classes = useStyles({ open });
   const theme = useTheme();
   const location = useLocation();
-  console.log(location);
-  const breathingDotsSelected = location.pathname.startsWith('/breathing_dots');
 
   useEffect(() => {
-    console.log(location.pathname);
-  }, [location]);
+
+  }, []);
 
   return (
     <Drawer
@@ -122,7 +120,7 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       </MenuList>
       <Box flexGrow={1} />
       <Divider />
-      {breathingDotsSelected && <BreathingDotsControls />}
+      <Controls />
     </Drawer>
   );
 };

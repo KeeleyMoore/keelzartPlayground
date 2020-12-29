@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
+import { SharedCanvasContext } from 'react-three-fiber';
 
 export interface ControlsContextValue {
-  recordControls: {
-    duration: number;
-    fps: number;
-    filename: string;
+  captureControls: {
+    captureEnabled: boolean;
+    setCaptureEnabled: (use: boolean) => void;
+    setDuration: (duration: number) => void;
+    setFps: (fps: number) => void;
+    setFilename: (filename: string) => void;
+    bind: (context: SharedCanvasContext) => void;
+    startRecording: () => void;
   }
 }
 

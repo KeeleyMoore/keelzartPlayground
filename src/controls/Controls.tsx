@@ -1,3 +1,4 @@
+import { Divider } from '@material-ui/core';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ const Controls: FC = () => {
   return (
     <>
       <CaptureControls />
+      <Divider />
       {breathingDotsSelected && <BreathingDotsControls />}
     </>
   );

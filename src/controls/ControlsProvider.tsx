@@ -5,9 +5,9 @@ import { CaptureControlsState, ControlsContext } from "./context";
 
 const initialState: CaptureControlsState = {
   captureEnabled: false,
-  duration: 8,
+  duration: 2,
   fps: 25,
-  filename: ''
+  filename: 'clip'
 };
 
 type reducerDispatch = { field: string, value: number | string | boolean };
@@ -17,12 +17,11 @@ const reducer = (state: CaptureControlsState, { field, value }: reducerDispatch)
 const ControlsProvider: FC = ({ children }) => {
   const [{ duration, fps, filename, captureEnabled }, dispatch] = useReducer(reducer, initialState);
   const dispatchInputUpdate = (field: string, value: number | string | boolean) => {
-    console.log(field, value);
     dispatch({ field, value });
   };
 
-  const [bind, startRecording] = useCapture({
-    duration, fps, filename, framerate: 30, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: false, children: undefined
+  let [bind, startRecording] = useCapture({
+    duration, fps, filename: filename ? filename : 'clip', framerate: 30, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: captureEnabled, children: undefined
   });
 
   return (

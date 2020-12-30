@@ -64,13 +64,15 @@ const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) =>
     </>
   );
 };
-
-const DrawKotchCurve: FC = () => {
+interface DrawKotchCurveProps {
+  depth: number;
+  length: number;
+}
+const DrawKotchCurve: FC<DrawKotchCurveProps> = ({ depth = 4, length = 80 }) => {
   const { viewport } = useThree();
-  const depth = 7;
   const alpha = Math.PI / 3;
 
-  const x1 = (viewport.width / 100) * 3 - 10;
+  const x1 = (viewport.width / length) * 3 - 10;
   const len = viewport.width - (x1 * 2);
   const x2 = x1 + len;
   const y1 = viewport.height * 7 / 8;
@@ -81,8 +83,8 @@ const DrawKotchCurve: FC = () => {
 };
 
 const Kotch: FC = () => {
-  const { captureControls: { bind } } = useControlsContext();
-
+  const { captureControls: { bind }, currentScene } = useControlsContext();
+  console.log(currentScene);
   return (
     <Canvas
       colorManagement={false}
@@ -93,7 +95,8 @@ const Kotch: FC = () => {
     >
       <Camera zoom={1} />
       <color attach="background" args={[0, 0, 0]} />
-      <DrawKotchCurve />
+      {/* TODO:: create generic type for controls current scene to avoid casting here */}
+      <DrawKotchCurve depth={currentScene.depth as number} length={currentScene.length as number} />
     </Canvas>
   );
 };

@@ -85,11 +85,11 @@ const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
   // Read this article about post processing to understand what we've used here:
   // https://threejsfundamentals.org/threejs/lessons/threejs-post-processing.html
 
-  const goem = new THREE.CircleBufferGeometry(0.15);
-  const mesh = new THREE.MeshBasicMaterial();
-
   return (
-    <instancedMesh ref={ref} args={[goem, mesh, 10000]} />
+    <instancedMesh ref={ref} args={[null as unknown as THREE.BufferGeometry, null as unknown as THREE.Material, 10000]}>
+      <circleBufferGeometry args={[0.15]} />
+      <meshBasicMaterial />
+    </instancedMesh>
   );
 };
 

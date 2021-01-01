@@ -26,7 +26,7 @@ const KotchControls: FC = () => {
         valueLabelDisplay="auto"
         value={depth}
         min={1}
-        max={8}
+        max={7}
         onChange={(event, value) => setDepth(value as number)}
       />
       <Typography variant="subtitle2">Length</Typography>
@@ -34,7 +34,7 @@ const KotchControls: FC = () => {
         valueLabelDisplay="auto"
         value={length}
         min={7}
-        max={100}
+        max={25}
         onChange={(event, value) => setLength(value as number)}
       />
     </Box>

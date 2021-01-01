@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useLayoutEffect, useRef } from 'react';
 import { Canvas, useThree, useUpdate } from 'react-three-fiber';
-import { Vector2 } from 'three';
+import * as THREE from 'three';
 import { Camera } from '../../../components/DefaultCamera';
 import { useControlsContext } from '../../../controls';
 interface LinesProps {
@@ -9,10 +9,37 @@ interface LinesProps {
   y1: number;
   y2: number;
 }
-const Line: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
 
+const InstancedLine: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
+  const ref = useRef<THREE.InstancedMesh>();
+  // const lineBufferRef = useUpdate<THREE.BufferGeometry>(geometry => {
+  //   geometry.setFromPoints([new THREE.Vector2(x1, y1), new THREE.Vector2(x2, y2)]);
+  // }, []);
+
+  useLayoutEffect(() => {
+    const transform = new THREE.Matrix4();
+    console.log(new THREE.Vector3(x1, y1));
+    transform.setPosition(new THREE.Vector3(x1, y1), x2, 0);
+    // for (let i = 0; i < 10000; ++i) {
+    //   const x = (i % 100) - 50;
+    //   const y = Math.floor(i / 100) - 50;
+    //   transform.setPosition(x, y, 0);
+    //   ref.current!.setMatrixAt(i, transform);
+    // }
+  }, [x1, y1, x2]);
+
+  return (
+    <instancedMesh ref={ref} args={[null as unknown as THREE.BufferGeometry, null as unknown as THREE.Material, 1]}>
+      <bufferGeometry />
+      {/* <circleBufferGeometry args={[0.15]} /> */}
+      <lineBasicMaterial color={0x0000ff} vertexColors />
+    </instancedMesh>
+  );
+};
+
+const Line: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
   const lineBufferRef = useUpdate<THREE.BufferGeometry>(geometry => {
-    geometry.setFromPoints([new Vector2(x1, y1), new Vector2(x2, y2)]);
+    geometry.setFromPoints([new THREE.Vector2(x1, y1), new THREE.Vector2(x2, y2)]);
   }, []);
 
   return (
@@ -24,6 +51,7 @@ const Line: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
     </group>
   );
 };
+
 interface CurveProps extends LinesProps {
   currentDept: number;
   depth: number;
@@ -40,12 +68,6 @@ const CurveOrLine: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha
 };
 
 const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) => {
-  const toSmallToSplit = (Math.abs(x1 - x2)) < 0 && currentDept !== 0;
-  // const toSmallToSplit = ((Math.abs(x1 - x2)) < 1 || (Math.abs(y1 - y2)) < 1) && currentDept !== 0;
-  if (currentDept === depth || toSmallToSplit) {
-    return <Line x1={x1} x2={x2} y1={y1} y2={y2} />;
-  }
-
   const xThird = (x2 - x1) / 3,
     yThird = (y2 - y1) / 3;
 
@@ -64,6 +86,7 @@ const Curve: FC<CurveProps> = ({ x1, x2, y1, y2, currentDept, depth, alpha }) =>
     </>
   );
 };
+
 interface DrawKotchCurveProps {
   depth: number;
   length: number;
@@ -77,6 +100,7 @@ const DrawKotchCurve: FC<DrawKotchCurveProps> = ({ depth = 4, length = 80 }) => 
   const x2 = x1 + len;
   const y1 = viewport.height * 7 / 8;
   const y2 = y1;
+
   return (
     <CurveOrLine x1={x1} x2={x2} y1={y1} y2={y2} depth={depth} currentDept={0} alpha={alpha} />
   );
@@ -84,7 +108,7 @@ const DrawKotchCurve: FC<DrawKotchCurveProps> = ({ depth = 4, length = 80 }) => 
 
 const Kotch: FC = () => {
   const { captureControls: { bind }, currentScene } = useControlsContext();
-  console.log(currentScene);
+
   return (
     <Canvas
       colorManagement={false}
@@ -93,10 +117,11 @@ const Kotch: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={1} />
+      <Camera zoom={20} />
       <color attach="background" args={[0, 0, 0]} />
       {/* TODO:: create generic type for controls current scene to avoid casting here */}
       <DrawKotchCurve depth={currentScene.depth as number} length={currentScene.length as number} />
+      <InstancedLine x1={61.36250000000001} x2={1841.6375} y1={524.125} y2={524.125} />
     </Canvas>
   );
 };

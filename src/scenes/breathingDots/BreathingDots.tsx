@@ -24,6 +24,7 @@ const waveStyleMetadata: Record<string, (dist: number, t: number, f: number) => 
 };
 
 const waveMultiplyerValue = (t: number, f: number, type: keyof typeof Waves, dist: number,) => streamEnumMetadata(Waves, waveStyleMetadata).find(({ key }) => key === type)?.value(t, f, dist);
+
 interface DotsProps { tValue: number, fValue: number, wave: keyof typeof Waves }
 const Dots: FC<DotsProps> = ({ tValue, fValue, wave }) => {
   const ref = useRef<THREE.InstancedMesh>();

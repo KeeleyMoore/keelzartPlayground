@@ -10,7 +10,7 @@ const DrawCircle = (props) => {
   
   if (radius > minRadius) {
     if (!reduceX && !reduceY) {
-      newCircleObjects.push({key: `${radius}-2`,x: x, y: y, radius: radius * 0.75 })
+      newCircleObjects.push({key: `${radius}-2`,x: x, y: y, radius: radius * 0.75 });
     } else {
       const newRadius = radius / 2;
 

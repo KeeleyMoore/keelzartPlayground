@@ -1,44 +1,16 @@
-import React, { FC, useLayoutEffect, useRef } from 'react';
-import { Canvas, useFrame, useThree, useUpdate } from 'react-three-fiber';
+import React, { FC } from 'react';
+import { Canvas, useThree, useUpdate } from 'react-three-fiber';
 import * as THREE from 'three';
 import { Camera } from '../../../components/DefaultCamera';
+
 import { useControlsContext } from '../../../controls';
+
 interface LinesProps {
   x1: number;
   x2: number;
   y1: number;
   y2: number;
 }
-
-const InstancedLine: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
-  const ref = useRef<THREE.InstancedMesh>();
-
-  const vec = new THREE.Vector3();
-  const transform = new THREE.Matrix4();
-  const position = new THREE.Vector3();
-
-  position.x = -0.02574881765633208;
-  position.y = -1;
-  console.log(position);
-
-  useFrame(({ clock }) => {
-    vec.copy(position).multiplyScalar(Math.sin(4) + 1.3);
-
-    // Apply the Vector3 to a Matrix4
-    transform.setPosition(position);
-    // Update Matrix4 for this instance
-    ref.current!.setMatrixAt(1, transform);
-
-    ref.current!.instanceMatrix.needsUpdate = true;
-  });
-
-  return (
-    <instancedMesh ref={ref} args={[null as unknown as THREE.BufferGeometry, null as unknown as THREE.Material, 1]}>
-      <bufferGeometry />
-      <lineBasicMaterial color={0x0000ff} vertexColors />
-    </instancedMesh>
-  );
-};
 
 const Line: FC<LinesProps> = ({ x1, x2, y1, y2 }) => {
   const lineBufferRef = useUpdate<THREE.BufferGeometry>(geometry => {
@@ -120,11 +92,10 @@ const Kotch: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={20} />
+      <Camera zoom={3} />
       <color attach="background" args={[0, 0, 0]} />
       {/* TODO:: create generic type for controls current scene to avoid casting here */}
       <DrawKotchCurve depth={currentScene.depth as number} length={currentScene.length as number} />
-      <InstancedLine x1={61.36250000000001} x2={1841.6375} y1={524.125} y2={524.125} />
     </Canvas>
   );
 };

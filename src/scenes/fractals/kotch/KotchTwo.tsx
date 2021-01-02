@@ -80,7 +80,7 @@ function Line() {
     };
 
     let y = 0;
-
+    
     snowflake(
       [
         new THREE.Vector3(0, y, 0),
@@ -88,8 +88,18 @@ function Line() {
       ],
       false, 600
     );
+    y += 300;
+    snowflake(
+      [
+        new THREE.Vector3(0, y, 0),
+        new THREE.Vector3(500, y, 0),
+        new THREE.Vector3(500, y, 0),
+        new THREE.Vector3(0, y, 0),
+      ],
+      false, 600
+    );
 
-    y += 600;
+    y += 300;
     snowflake(
       [
         new THREE.Vector3(0, y, 0),
@@ -99,7 +109,7 @@ function Line() {
       true, 600
     );
 
-    y += 600;
+    y += 400;
     snowflake(
       [
         new THREE.Vector3(0, y, 0),
@@ -110,7 +120,7 @@ function Line() {
       true, 600
     );
 
-    y += 1000;
+    y += 800;
     snowflake(
       [
         new THREE.Vector3(250, y, 0),
@@ -126,12 +136,25 @@ function Line() {
       false, 600
     );
 
+    y += 600;
+    snowflake(
+      [
+        new THREE.Vector3(250, y - 250, 0),
+        new THREE.Vector3(500, y, 0),
+        new THREE.Vector3(250, y + 250, 0),
+        new THREE.Vector3(0, y, 0),
+        new THREE.Vector3(250, y - 250, 0),
+        // new THREE.Vector3(250, y, 0)
+      ],
+      false, 600
+    );
+
     return { indices, positions, colors };
   }, []);
 
   return (
     <group>
-      <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1150} position-y={1000}>
+      <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1150} position-y={100}>
         <bufferGeometry
           attach="geometry"
           ref={geom}

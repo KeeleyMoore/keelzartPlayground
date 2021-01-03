@@ -15,8 +15,8 @@ export interface ControlsContextValue {
     bind: (context: SharedCanvasContext) => void;
     startRecording: () => void;
   }
-  currentScene: Record<string, string | number | boolean>;
-  setCurrentScene: (controls: Record<string, string | number | boolean>) => void
+  currentScene: Record<string, string | number | boolean | string[]>;
+  setCurrentScene: (controls: Record<string, string | number | boolean | string[]>) => void
 }
 
 const ControlsContextDefaultValue = {} as ControlsContextValue;

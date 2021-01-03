@@ -7,7 +7,7 @@ import { BreathingDots, BreathingDotsProvider } from './scenes/breathingDots';
 import { ControlsProvider } from './controls';
 import { InterfaceProvider, Interface } from './interface';
 import { Lines } from './scenes/lines';
-import { KotchTwo } from './scenes/fractals/kotch';
+import { Kotch } from './scenes/fractals/kotch';
 
 const App: FC = () => {
 
@@ -26,7 +26,7 @@ const App: FC = () => {
                   <Lines />
                 </Route>
                 <Route exact path="/kotch">
-                  <KotchTwo />
+                  <Kotch />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

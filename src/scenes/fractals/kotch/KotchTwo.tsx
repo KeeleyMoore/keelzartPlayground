@@ -111,7 +111,7 @@ function Line() {
       return next_positions_index++;
     };
 
-    const snowflake_iteration = (p0: THREE.Vector3, p4: THREE.Vector3, depth: number) => {
+    const lineSegment = (p0: THREE.Vector3, p4: THREE.Vector3, depth: number) => {
 
       if (--depth < 0) {
         const i = next_positions_index - 1; // p0 already there
@@ -121,35 +121,41 @@ function Line() {
         return;
       }
 
+      // Copy end position and subtract start position
       const v = p4.clone().sub(p0);
+      // Divide by 3 to get segments length
       const v_tier = v.clone().multiplyScalar(1 / 3);
+
+      // Add segment length to start pos to get next pos
       const p1 = p0.clone().add(v_tier);
 
+      // Calculate angle between y and x then add the value of a right angle
       const angle = Math.atan2(v.y, v.x) + rangle;
       const length = v_tier.length();
       const p2 = p1.clone();
+      // Use cos to calculate the x vertex position from the angle and multiply by segment length to add to the previous x's postion
       p2.x += Math.cos(angle) * length;
+      // Use sin to calculate the y vertex position from the angle and multiply by segment length to add to the previous y's postion
       p2.y += Math.sin(angle) * length;
+      // subtrack segment length from end vertex to get 2nd to last vertex
+      const p3 = p4.clone().sub(v_tier);
 
-      const p3 = p0.clone().add(v_tier).add(v_tier);
-
-      snowflake_iteration(p0, p1, depth);
-      snowflake_iteration(p1, p2, depth);
-      snowflake_iteration(p2, p3, depth);
-      snowflake_iteration(p3, p4, depth);
-
+      lineSegment(p0, p1, depth);
+      lineSegment(p1, p2, depth);
+      lineSegment(p2, p3, depth);
+      lineSegment(p3, p4, depth);
     };
 
-    const snowflake = (points: THREE.Vector3[], loop: boolean, x_offset: number) => {
+    const drawPattern = (points: THREE.Vector3[], loop: boolean, x_offset: number) => {
       for (let iteration = 0; iteration !== iteration_count; iteration++) {
 
         add_vertex(points[0]);
 
         for (let p_index = 0, p_count = points.length - 1; p_index !== p_count; p_index++) {
-          snowflake_iteration(points[p_index], points[p_index + 1], iteration);
+          lineSegment(points[p_index], points[p_index + 1], iteration);
         }
 
-        if (loop) snowflake_iteration(points[points.length - 1], points[0], iteration);
+        if (loop) lineSegment(points[points.length - 1], points[0], iteration);
 
         // translate input curve for next iteration
         for (let p_index = 0, p_count = points.length; p_index !== p_count; p_index++) {
@@ -158,13 +164,13 @@ function Line() {
       }
     };
 
-    const selectedPatterns = ['line', 'triangle', 'square', 'squareMirrored', 'cross',  'diamond'];
+    const selectedPatterns = ['line', 'triangle', 'square', 'squareMirrored', 'cross', 'diamond'];
     const patternsToDraw = kotchsCurvePatterns(selectedPatterns);
 
     let yStart = 0;
     patternsToDraw.forEach(({ vertex, margin, loop }) => {
       yStart += margin[1];
-      snowflake(
+      drawPattern(
         vertex.map(({ x, y, z }) => new THREE.Vector3(x, yStart + y, z)),
         loop,
         margin[0]
@@ -193,7 +199,7 @@ function Line() {
   );
 }
 
-const KotchTwo: FC = () => {
+const Kotch: FC = () => {
   return (
     <Canvas
       pixelRatio={window.devicePixelRatio}
@@ -205,4 +211,4 @@ const KotchTwo: FC = () => {
   );
 };
 
-export default KotchTwo;
+export default Kotch;

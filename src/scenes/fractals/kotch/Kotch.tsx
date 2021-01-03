@@ -67,13 +67,12 @@ interface DrawKotchCurveProps {
   length: number;
 }
 const DrawKotchCurve: FC<DrawKotchCurveProps> = ({ depth = 4, length = 80 }) => {
-  const { viewport } = useThree();
   const alpha = Math.PI / 3;
 
-  const x1 = (viewport.width / length) * 3 - 10;
-  const len = viewport.width - (x1 * 2);
+  const x1 = (window.innerWidth / length) * 3 - 10;
+  const len = window.innerWidth - (x1 * 2);
   const x2 = x1 + len;
-  const y1 = viewport.height * 7 / 8;
+  const y1 = window.innerHeight * 7 / 8;
   const y2 = y1;
 
   return (

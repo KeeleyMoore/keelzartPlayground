@@ -114,7 +114,7 @@ const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
   }, [sceneControls]);
 
   const yPos = sceneControls.overlap ? (three.viewport.height / 2) - 500 : 100;
-  console.log(yPos);
+
   return (
     <group>
       <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1225} position-y={yPos}>
@@ -138,9 +138,7 @@ const Kotch: FC = () => {
   const { currentScene } = useControlsContext();
 
   return (
-    <Canvas
-      pixelRatio={window.devicePixelRatio}
-    >
+    <Canvas>
       <Camera zoom={0.25} />
       <color attach="background" args={[0, 0, 0]} />
       {currentScene?.selectedPatterns && <KotchCurve sceneControls={currentScene as unknown as KotchControlsValue} />}

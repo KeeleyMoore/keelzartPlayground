@@ -15,7 +15,7 @@ export const kotchCurvePatterns: Record<string, KotchCurvePattern> = {
       { x: 400, y: 200, z: 0 },
     ],
     loop: true,
-    margin: [650, 150, 150]
+    margin: [650, 350, -100]
   },
   'triangle': {
     vertex: [

@@ -4,7 +4,6 @@ import { useThree } from "react-three-fiber";
 export interface CameraProps { zoom: number, position?: [x: number, y: number, z: number] }
 export const Camera: FC<CameraProps> = ({ zoom, position }) => {
   const { viewport } = useThree();
-  console.log(viewport.width / 2, viewport.height / 2);
 
   if (!position) {
     position = [(viewport.width / 2), (viewport.height / 2), 5];

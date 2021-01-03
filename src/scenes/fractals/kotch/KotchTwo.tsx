@@ -3,6 +3,92 @@ import { Canvas, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { Camera } from '../../../components/DefaultCamera';
 
+interface KotchCurvePattern {
+  vertex: {
+    x: number;
+    y: number;
+    z: number;
+  }[];
+  loop: boolean;
+  margin: number[];
+}
+
+const kotchCurvePatterns: Record<string, KotchCurvePattern> = {
+  'line': {
+    vertex: [
+      { x: 0, y: 0, z: 0 },
+      { x: 400, y: 0, z: 0 },
+    ],
+    loop: true,
+    margin: [650, 100]
+  },
+  'triangle': {
+    vertex: [
+      { x: 0, y: 0, z: 0 },
+      { x: 200, y: 320, z: 0 },
+      { x: 400, y: 0, z: 0 },
+    ],
+    loop: true,
+    margin: [650, 250]
+  },
+  'square': {
+    vertex: [
+      { x: 0, y: 0, z: 0 },
+      { x: 400, y: 0, z: 0 },
+      { x: 400, y: 400, z: 0 },
+      { x: 0, y: 400, z: 0 },
+    ],
+    loop: true,
+    margin: [650, 350]
+  },
+  'squareMirrored': {
+    vertex: [
+      { x: 0, y: 0, z: 0 },
+      { x: 400, y: 0, z: 0 },
+      { x: 400, y: 400, z: 0 },
+      { x: 0, y: 400, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 0, y: 400, z: 0 },
+      { x: 400, y: 400, z: 0 },
+      { x: 400, y: 0, z: 0 },
+      { x: 400, y: 0, z: 0 },
+    ],
+    loop: true,
+    margin: [650, 550]
+  },
+  'cross': {
+    vertex: [
+      { x: 200, y: 0, z: 0 },
+      { x: 400, y: 0, z: 0 },
+      { x: 200, y: 0, z: 0 },
+      { x: 200, y: 200, z: 0 },
+      { x: 200, y: 0, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 200, y: 0, z: 0 },
+      { x: 200, y: -200, z: 0 },
+      { x: 200, y: 0, z: 0 },
+    ],
+    loop: false,
+    margin: [650, 750]
+  },
+  'diamond': {
+    vertex: [
+      { x: 200, y: -200, z: 0 },
+      { x: 400, y: 0, z: 0 },
+      { x: 200, y: 200, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 200, y: -200, z: 0 }
+    ],
+    loop: false,
+    margin: [650, 450]
+  }
+};
+
+const kotchsCurvePatterns = (selectedPatterns: string[]) => {
+  return selectedPatterns.map(pattern => kotchCurvePatterns[pattern]);
+};
+
 function Line() {
   const lines = useRef();
   const geom = useRef<THREE.BufferGeometry>();
@@ -18,7 +104,6 @@ function Line() {
     const rangle = 60 * Math.PI / 180.0;
 
     const add_vertex = (v: THREE.Vector3) => {
-
       if (next_positions_index === 0xffff) console.error('Too many points.');
       positions.push(v.x, v.y, v.z);
       colors.push(Math.random() * 0.5 + 0.5, Math.random() * 0.5 + 0.5, 1);
@@ -55,11 +140,6 @@ function Line() {
 
     };
 
-    // const drawLine = () => {
-    //   add_vertex(new THREE.Vector3(-9.1, 0, 0));
-    //   snowflake_iteration(new THREE.Vector3(-9.1, 0, 0), new THREE.Vector3(9.1, 0, 0), 0);
-    // };
-
     const snowflake = (points: THREE.Vector3[], loop: boolean, x_offset: number) => {
       for (let iteration = 0; iteration !== iteration_count; iteration++) {
 
@@ -74,87 +154,29 @@ function Line() {
         // translate input curve for next iteration
         for (let p_index = 0, p_count = points.length; p_index !== p_count; p_index++) {
           points[p_index].x += x_offset;
-
         }
       }
     };
 
-    let y = 0;
-    
-    snowflake(
-      [
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(500, y, 0)
-      ],
-      false, 600
-    );
-    y += 300;
-    snowflake(
-      [
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(500, y, 0),
-        new THREE.Vector3(500, y, 0),
-        new THREE.Vector3(0, y, 0),
-      ],
-      false, 600
-    );
+    const selectedPatterns = ['line', 'triangle', 'square', 'squareMirrored', 'cross',  'diamond'];
+    const patternsToDraw = kotchsCurvePatterns(selectedPatterns);
 
-    y += 300;
-    snowflake(
-      [
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(250, y + 400, 0),
-        new THREE.Vector3(500, y, 0)
-      ],
-      true, 600
-    );
-
-    y += 400;
-    snowflake(
-      [
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(500, y, 0),
-        new THREE.Vector3(500, y + 500, 0),
-        new THREE.Vector3(0, y + 500, 0)
-      ],
-      true, 600
-    );
-
-    y += 800;
-    snowflake(
-      [
-        new THREE.Vector3(250, y, 0),
-        new THREE.Vector3(500, y, 0),
-        new THREE.Vector3(250, y, 0),
-        new THREE.Vector3(250, y + 250, 0),
-        new THREE.Vector3(250, y, 0),
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(250, y, 0),
-        new THREE.Vector3(250, y - 250, 0),
-        new THREE.Vector3(250, y, 0)
-      ],
-      false, 600
-    );
-
-    y += 600;
-    snowflake(
-      [
-        new THREE.Vector3(250, y - 250, 0),
-        new THREE.Vector3(500, y, 0),
-        new THREE.Vector3(250, y + 250, 0),
-        new THREE.Vector3(0, y, 0),
-        new THREE.Vector3(250, y - 250, 0),
-        // new THREE.Vector3(250, y, 0)
-      ],
-      false, 600
-    );
+    let yStart = 0;
+    patternsToDraw.forEach(({ vertex, margin, loop }) => {
+      yStart += margin[1];
+      snowflake(
+        vertex.map(({ x, y, z }) => new THREE.Vector3(x, yStart + y, z)),
+        loop,
+        margin[0]
+      );
+    });
 
     return { indices, positions, colors };
   }, []);
 
   return (
     <group>
-      <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1150} position-y={100}>
+      <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1225} position-y={100}>
         <bufferGeometry
           attach="geometry"
           ref={geom}

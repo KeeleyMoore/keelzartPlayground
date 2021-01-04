@@ -8,6 +8,7 @@ import { ControlsProvider } from './controls';
 import { InterfaceProvider, Interface } from './interface';
 import { Lines } from './scenes/lines';
 import { Kotch } from './scenes/fractals/kotch';
+import Circles  from './scenes/fractals/circles/Circles';
 
 const App: FC = () => {
 
@@ -27,6 +28,9 @@ const App: FC = () => {
                 </Route>
                 <Route exact path="/kotch">
                   <Kotch />
+                </Route>
+                <Route exact path="/circles">
+                  <Circles />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

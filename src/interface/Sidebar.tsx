@@ -117,6 +117,13 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
           </ListItemIcon>
           <ListItemText>Kotch</ListItemText>
         </MenuItem>
+        <Divider />
+        <MenuItem className={classes.menuItem} component={Link} to="/circles">
+          <ListItemIcon>
+            <MenuBookIcon />
+          </ListItemIcon>
+          <ListItemText>Circles</ListItemText>
+        </MenuItem>
       </MenuList>
       <Box flexGrow={1} />
       <Divider />

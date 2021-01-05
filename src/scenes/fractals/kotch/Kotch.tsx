@@ -16,7 +16,6 @@ interface KotchCurveProps {
 }
 
 const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
-  const lines = useRef();
   const geom = useRef<THREE.BufferGeometry>();
   const three = useThree();
 
@@ -117,7 +116,7 @@ const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
 
   return (
     <group>
-      <lineSegments ref={lines} position-x={(three.viewport.width / 2) - 1225} position-y={yPos}>
+      <lineSegments position-x={(three.viewport.width / 2) - 1225} position-y={yPos}>
         <bufferGeometry
           attach="geometry"
           ref={geom}

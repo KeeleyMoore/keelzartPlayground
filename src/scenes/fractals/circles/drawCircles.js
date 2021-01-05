@@ -18,13 +18,13 @@ const DrawCircle = (props) => {
         newCircleObjects.push(
           {key: `${radius}-1x-${x}`,x: x - radius, y: y, radius: newRadius },
           {key: `${radius}-2x-${y}`,x: x + radius, y: y, radius: newRadius }
-        )
+        );
       }
       if (reduceY) {
         newCircleObjects.push(
           {key: `${radius}-1y-${y}`,x: x, y: y - radius, radius: newRadius },
           {key: `${radius}-2y-${x}`,x: x, y: y + radius, radius: newRadius }
-        )
+        );
       }
     }
   }

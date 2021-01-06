@@ -13,8 +13,8 @@ const drawCircles = () => {
   let nextRadius = radius / 2;
 
   const drawCircle = (circleRadius: number, circleX: number, circleY: number) => {
-    const circleShape2 = new THREE.Path().absellipse(x, y, circleRadius, circleRadius, 0, Math.PI * 2, true, 0);
-    circlePoints.push(circleShape2.getSpacedPoints(circleRadius / 2));
+    const circleShape2 = new THREE.Path().absellipse(circleX, circleY, circleRadius, circleRadius, 0, Math.PI * 2, true, 0);
+    circlePoints.push(circleShape2.getSpacedPoints(radius * 3));
   };
 
   drawCircle(radius, x, y);
@@ -23,17 +23,11 @@ const drawCircles = () => {
     if (reduceX) {
       drawCircle(nextRadius, x - radius, y);
       drawCircle(nextRadius, x + radius, y);
-      // newCircleObjects.push(
-      //   { key: `${radius}-1x-${x}`, x: x - radius, y: y, radius: newRadius },
-      //   { key: `${radius}-2x-${y}`, x: x + radius, y: y, radius: newRadius }
-      // );
     }
-    // if (reduceY) {
-    //   newCircleObjects.push(
-    //     { key: `${radius}-1y-${y}`, x: x, y: y - radius, radius: newRadius },
-    //     { key: `${radius}-2y-${x}`, x: x, y: y + radius, radius: newRadius }
-    //   );
-    // }
+    if (reduceY) {
+      drawCircle(nextRadius, x, y - radius);
+      drawCircle(nextRadius, x, y + radius);
+    }
     radius = nextRadius;
     nextRadius = radius / 2;
   };
@@ -78,11 +72,11 @@ const Circles: FC = () => {
     <Canvas>
       <Camera zoom={20} />
       <color attach="background" args={[0, 0, 0]} />
-      <line position-x={50} position-y={25}>
-        {circles.map((circle) => (
+      {circles.map((circle) => (
+        <lineLoop position-x={50} position-y={25}>
           <bufferGeometry onUpdate={self => self.setFromPoints(circle)} />
-        ))}
-      </line>
+        </lineLoop>
+      ))}
       {/* <lineLoop position-x={50} position-y={25}>
         <bufferGeometry onUpdate={self => self.setFromPoints(squircleShape.getPoints())} />
       </lineLoop>

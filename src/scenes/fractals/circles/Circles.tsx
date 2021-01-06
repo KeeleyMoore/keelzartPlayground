@@ -5,37 +5,38 @@ import * as THREE from 'three';
 import { Camera } from '../../../components/DefaultCamera';
 
 const drawCircles = () => {
-  const reduceX = true, reduceY = true, x = 0, y = 0;
-  const minRadius = 5;
+  const reduceX = true, reduceY = true, startX = 0, startY = 0;
+  const minRadius = 0.3;
   const circlePoints: THREE.Vector2[][] = [];
 
-  let radius = 16;
-  let nextRadius = radius / 2;
+  let startRadius = 16;
 
-  const drawCircle = (circleRadius: number, circleX: number, circleY: number) => {
+  const addCircle = (circleRadius: number, circleX: number, circleY: number) => {
     const circleShape2 = new THREE.Path().absellipse(circleX, circleY, circleRadius, circleRadius, 0, Math.PI * 2, true, 0);
-    circlePoints.push(circleShape2.getSpacedPoints(radius * 3));
+    const segmentCount = Math.min(Math.max(circleRadius * 20, 10), 100);
+    circlePoints.push(circleShape2.getSpacedPoints(segmentCount));
   };
 
-  drawCircle(radius, x, y);
-
-  const divideCircle = () => {
+  const divideCircle = (radius: number, x: number, y: number) => {
     if (reduceX) {
-      drawCircle(nextRadius, x - radius, y);
-      drawCircle(nextRadius, x + radius, y);
+      drawCircle(radius / 2, x - radius, y);
+      drawCircle(radius / 2, x + radius, y);
     }
     if (reduceY) {
-      drawCircle(nextRadius, x, y - radius);
-      drawCircle(nextRadius, x, y + radius);
+      drawCircle(radius / 2, x, y - radius);
+      drawCircle(radius / 2, x, y + radius);
     }
-    radius = nextRadius;
-    nextRadius = radius / 2;
   };
 
-  if (radius > minRadius) {
-    divideCircle();
-  }
-  console.log(circlePoints);
+  const drawCircle = (radius: number, x: number, y: number) => {
+    addCircle(radius, x, y);
+    if (radius > minRadius) {
+      divideCircle(radius, x, y);
+    }
+  };
+
+  drawCircle(startRadius, startX, startY);
+
   return circlePoints;
 };
 
@@ -70,7 +71,7 @@ const Circles: FC = () => {
 
   return (
     <Canvas>
-      <Camera zoom={20} />
+      <Camera zoom={18} />
       <color attach="background" args={[0, 0, 0]} />
       {circles.map((circle) => (
         <lineLoop position-x={50} position-y={25}>

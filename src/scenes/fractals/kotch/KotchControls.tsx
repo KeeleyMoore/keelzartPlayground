@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Box, MenuItem, Slider, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Box, MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel } from '@material-ui/core';
 import debounce from 'lodash/debounce';
 
 import { kotchCurvePatterns } from './patterns';
@@ -11,8 +11,8 @@ export interface KotchControlsValue {
 
 const KotchControls: FC = () => {
   const { setCurrentScene } = useControlsContext();
-  const [depth, setDepth] = useState<number>(4);
-  const [length, setLength] = useState<number>(80);
+  const [depth] = useState<number>(4);
+  const [length] = useState<number>(80);
   const [selectedPatterns, setSelectedPatterns] = useState<string[]>(['cross', 'squareMirrored', 'diamond']);
   const [overlap, setOverlap] = useState<boolean>(true);
   console.log(overlap);

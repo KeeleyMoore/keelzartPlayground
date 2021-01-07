@@ -102,12 +102,7 @@ export class TreeGenerator extends Component {
   }
 }
 
-
 // Origin : knowstack.com/html5-canvas-fractal-tree/ || gist.github.com/gsluthra/3401766
-
-
-
-
 
 // class MyRect extends Component {
 //   constructor(props) {

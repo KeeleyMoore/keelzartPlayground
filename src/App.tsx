@@ -8,7 +8,8 @@ import { ControlsProvider } from './controls';
 import { InterfaceProvider, Interface } from './interface';
 import { Lines } from './scenes/lines';
 import { Kotch } from './scenes/fractals/kotch';
-import Circles  from './scenes/fractals/circles/Circles';
+import { Circles } from './scenes/fractals/circles';
+import TreeGenerator from './scenes/treeGenerator/TreeGenerator';
 
 const App: FC = () => {
 
@@ -31,6 +32,9 @@ const App: FC = () => {
                 </Route>
                 <Route exact path="/circles">
                   <Circles />
+                </Route>
+                <Route path="/tree_generator">
+                  <TreeGenerator />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

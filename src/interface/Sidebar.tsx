@@ -103,26 +103,29 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
           </ListItemIcon>
           <ListItemText>Breathing Dots</ListItemText>
         </MenuItem>
-        <Divider />
         <MenuItem className={classes.menuItem} component={Link} to="/lines">
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>
           <ListItemText>Lines</ListItemText>
         </MenuItem>
-        <Divider />
         <MenuItem className={classes.menuItem} component={Link} to="/kotch">
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>
           <ListItemText>Kotch</ListItemText>
         </MenuItem>
-        <Divider />
         <MenuItem className={classes.menuItem} component={Link} to="/circles">
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>
           <ListItemText>Circles</ListItemText>
+        </MenuItem>
+        <MenuItem className={classes.menuItem} component={Link} to="/tree_generator">
+          <ListItemIcon>
+            <MenuBookIcon />
+          </ListItemIcon>
+          <ListItemText>Tree Gen</ListItemText>
         </MenuItem>
       </MenuList>
       <Box flexGrow={1} />

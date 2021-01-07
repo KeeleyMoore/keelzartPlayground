@@ -4,6 +4,7 @@ import * as THREE from 'three';
 
 import { Camera } from '../../../components/DefaultCamera';
 
+// This is the working exampled
 const drawCircles = () => {
   const reduceX = true, reduceY = true, startX = 0, startY = 0;
   const minRadius = 0.3;
@@ -46,6 +47,7 @@ const drawCircles = () => {
 };
 
 const Circles: FC = () => {
+  // this needs fixing so the bufer geom renders a circle instead of a dot or joining lines
   const { indices, positions } = useMemo(() => {
 
     const reduceX = true, reduceY = true, startX = 0, startY = 0;

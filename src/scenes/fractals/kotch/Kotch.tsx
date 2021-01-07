@@ -17,7 +17,7 @@ interface KotchCurveProps {
 
 const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
   const geom = useRef<THREE.BufferGeometry>();
-  const three = useThree();
+  const { viewport } = useThree();
 
   const { indices, positions, colors } = useMemo(() => {
     const indices: number[] = [];
@@ -42,7 +42,6 @@ const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
         const i = next_positions_index - 1; // p0 already there
         add_vertex(p4);
         indices.push(i, i + 1);
-
         return;
       }
 
@@ -112,11 +111,11 @@ const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
     return { indices, positions, colors };
   }, [sceneControls]);
 
-  const yPos = sceneControls.overlap ? (three.viewport.height / 2) - 500 : 100;
+  const yPos = sceneControls.overlap ? (viewport.height / 2) - 500 : 100;
 
   return (
     <group>
-      <lineSegments position-x={(three.viewport.width / 2) - 1225} position-y={yPos}>
+      <lineSegments position-x={(viewport.width / 2) - 1225} position-y={yPos}>
         <bufferGeometry
           attach="geometry"
           ref={geom}

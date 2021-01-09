@@ -7,3 +7,9 @@
 ![](./public/Ripple.gif)
 ![](./public/BubbleLoop.gif)
 ![](./public/BreathingDots-SlowBubble(doublespeed).gif)
+
+
+
+Animation ideas:
+
+On mouse click send a ripple/Wave effect of dots (similar to breathing dots) outs from the mouse click position

@@ -63,7 +63,7 @@ const DrawTree: FC = () => {
         <lineBasicMaterial attach="material" />
       </lineSegments>
       <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
-          
+        <geometry />
         <lineBasicMaterial attach="material" />
       </lineSegments>
     </>

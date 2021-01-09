@@ -112,7 +112,7 @@ const KotchCurve: FC<KotchCurveProps> = ({ sceneControls }) => {
   }, [sceneControls]);
 
   const yPos = sceneControls.overlap ? (viewport.height / 2) - 500 : 100;
-
+  console.log(indices.length, positions.length)
   return (
     <group>
       <lineSegments position-x={(viewport.width / 2) - 1225} position-y={yPos}>

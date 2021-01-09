@@ -24,7 +24,7 @@ const DrawTree: FC = () => {
       angle = 90,
       length = 6.6,
       thickness = 3,
-      depth = 12,
+      depth = 2,
       randomBranchMax = Math.floor((x1 / length) / depth);
     let index = 0;
 
@@ -51,16 +51,22 @@ const DrawTree: FC = () => {
   }, [viewport]);
   console.log(points, indices);
   return (
-    <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
-      <bufferGeometry
-        attach="geometry"
-        onUpdate={geometry => {
-          geometry.setIndex(indices);
-          geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
-        }}
-      />
-      <lineBasicMaterial attach="material" />
-    </lineSegments>
+    <>
+      <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
+        <bufferGeometry
+          attach="geometry"
+          onUpdate={geometry => {
+            geometry.setIndex(indices);
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+          }}
+        />
+        <lineBasicMaterial attach="material" />
+      </lineSegments>
+      <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
+          
+        <lineBasicMaterial attach="material" />
+      </lineSegments>
+    </>
   );
 };
 

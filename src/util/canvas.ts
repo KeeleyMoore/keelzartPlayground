@@ -33,7 +33,7 @@ export function mapRange(value: number, start1: number, stop1: number, start2: n
 }
 
 export function rgbValueFromRange(value: number, rangeStart: number, rangeEnd: number) {
-  return mapRange(value, rangeStart, rangeEnd, 0, 0.5);
+  return mapRange(value, rangeStart, rangeEnd, 0, 0.3);
 }
 
 export const colourGradientOne = {

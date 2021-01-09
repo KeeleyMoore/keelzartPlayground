@@ -42,9 +42,9 @@ const DrawCirlces = () => {
         // const g = Math.random();
         // const b = Math.random();
 
-        const r = rgbValueFromRange(segment.x, min, max);
-        const g = rgbValueFromRange(segment.y, min, max);
-        const b = rgbValueFromRange(segment.y + segment.x, min, max);
+        const r = rgbValueFromRange(segment.x - startRadius, min, max);
+        const g = rgbValueFromRange(segment.y - startRadius, min, max);
+        const b = rgbValueFromRange(segment.y - segment.x, min, max);
 
         // Set the first and last position an additional time to open and close the circle loop
         if (firstIndex || lastIndex) {

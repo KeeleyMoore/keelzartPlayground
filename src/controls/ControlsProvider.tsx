@@ -26,8 +26,6 @@ const ControlsProvider: FC = ({ children }) => {
     duration, fps, filename: filename ? filename : 'clip', framerate: 30, verbose: false, format: 'webm', motionBlurFrames: 0, showWidget: captureEnabled, children: undefined
   });
 
-  console.log(currentScene);
-
   return (
     <ControlsContext.Provider
       value={{

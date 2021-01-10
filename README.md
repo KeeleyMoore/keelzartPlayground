@@ -9,7 +9,12 @@
 ![](./public/BreathingDots-SlowBubble(doublespeed).gif)
 
 
+Interface TODOS:
+
+Remove top bar and replace with only hamburger menu on LHS
 
 Animation ideas:
 
 On mouse click send a ripple/Wave effect of dots (similar to breathing dots) outs from the mouse click position
+
+Circle Hover effect (explained in image within circles directory) - a reversed hover effect where the page is filled with circles but they retract when the mouse is wihtin x coordinates

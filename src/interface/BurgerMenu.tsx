@@ -40,13 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: 'translateY(16px)',
       }
     },
-    open: {
-      transform: `translateX(${theme.options.drawerWidth}px)`,
-      transition: theme.transitions.create(['transform'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.complex,
-      }),
-    },
     openBurger: {
       background: 'transparent',
       boxShadow: 'none',
@@ -82,7 +75,7 @@ const BurgerMenu: FC<BurgerMenuProps> = ({ open, toggleOpen }) => {
   };
 
   return (
-    <div className={clsx(classes.menuBtn, { [classes.open]: open })} onClick={handleClick} >
+    <div className={classes.menuBtn} onClick={handleClick} >
       <div className={clsx(classes.menuBtn_burger, { [classes.openBurger]: open })} >
       </div>
     </div >

@@ -68,10 +68,10 @@ const CirclesControls: FC = () => {
       <Typography variant="subtitle2">Z Colour range</Typography>
       <Slider
         valueLabelDisplay="auto"
-        valueLabelFormat={(value) => value + 20}
+        valueLabelFormat={(value) => value + 40}
         value={zColor}
-        min={-20}
-        max={20}
+        min={-40}
+        max={200}
         onChange={(event, value) => setZColor(value as number)}
       />
     </Box>

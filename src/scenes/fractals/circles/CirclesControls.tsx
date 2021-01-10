@@ -10,12 +10,12 @@ export interface CirclesControlsValue {
 
 const CirclesControls: FC = () => {
   const { setCurrentScene } = useControlsContext();
-  const [colorMin, setColorMin] = useState<number>(-60);
-  const [colorMax, setColorMax] = useState<number>(20);
-  const [zColor, setZColor] = useState<number>(20);
+  const [colorMin, setColorMin] = useState<number>(-50);
+  const [colorMax, setColorMax] = useState<number>(-20);
+  const [zColor, setZColor] = useState<number>(60);
 
   const [x, setX] = useState<boolean>(true);
-  const [y, setY] = useState<boolean>(false);
+  const [y, setY] = useState<boolean>(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setSceneControls = useCallback(debounce((newColorMax, newColorMin, newZColor, newX, newY) => {

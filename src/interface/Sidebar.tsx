@@ -1,22 +1,9 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
-  makeStyles,
-  Drawer,
-  Theme,
-  IconButton,
-  useTheme,
-  Divider,
-  MenuList,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Box,
+  makeStyles, Drawer, Theme, Divider, MenuList, MenuItem, ListItemIcon, ListItemText, Box, Typography
 } from '@material-ui/core';
-
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import HomeIcon from '@material-ui/icons/Home';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
@@ -47,15 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflowX: 'hidden',
     width: 0,
   },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0),
-    // needed for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
-  menuRoot: { padding: 0 },
+  menuRoot: { padding: theme.spacing(1.5, 0, 0, 0) },
   menuItem: { paddingLeft: theme.spacing(1.5) },
 }));
 
@@ -65,12 +44,7 @@ interface SidebarProps extends SidebarStyleProps {
 
 const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
   const classes = useStyles({ open });
-  const theme = useTheme();
   const location = useLocation();
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <Drawer
@@ -86,15 +60,9 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       open={open}
       variant="permanent"
     >
-      <div className={classes.toolbar}>
-        <IconButton onClick={onClose}>
-          {theme.direction === 'rtl' ? (
-            <ChevronRightIcon />
-          ) : (
-              <ChevronLeftIcon />
-            )}
-        </IconButton>
-      </div>
+      <Box my={1} mx={2}>
+        <Typography variant="h5">Keelzart</Typography>
+      </Box>
       <Divider />
       <MenuList className={classes.menuRoot}>
         <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={location.pathname.startsWith('/breathing_dots/')}>
@@ -128,8 +96,7 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
           <ListItemText>Tree Gen</ListItemText>
         </MenuItem>
       </MenuList>
-      <Box flexGrow={1} />
-      <Divider />
+      <Box flexGrow={1} mb={1} />
       <Controls />
     </Drawer>
   );

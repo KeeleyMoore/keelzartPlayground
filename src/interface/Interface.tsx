@@ -1,32 +1,24 @@
 import React, { FC, useState } from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Box, Theme, createStyles } from '@material-ui/core';
+import { AppBar, Typography, Box, Theme, createStyles } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import { useInterfaceContext } from './context';
-import clsx from 'clsx';
 import Sidebar from './Sidebar';
+
+import BurgerMenu from './BurgerMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       boxShadow: 'none',
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer - 1,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      backgroundColor: 'rgba(245, 245, 245, 0.6)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.6)'
-    },
-    appBarShift: {
-      marginLeft: theme.options.drawerWidth,
-      width: `calc(100% - ${theme.options.drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-  }),
+      backgroundColor: 'transparent',
+      borderBottom: 'transparent'
+    }
+  })
 );
 
 const Interface: FC = () => {
@@ -36,24 +28,14 @@ const Interface: FC = () => {
 
   return (
     <>
-      <AppBar
-        className={clsx(classes.root, {
-          [classes.appBarShift]: sidebarOpen,
-        })}
-        position="absolute"
-        color="default"
-      >
-        <Toolbar variant="dense">
-          <IconButton edge="start" aria-label="menu" onClick={() => setSidebarOpen(!sidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6">
-            {title}
-          </Typography>
-          <Box display="flex" flexGrow={2} />
-          <Box flexGrow={1} display="flex" alignItems="center">
-          </Box>
-        </Toolbar>
+      <AppBar className={classes.root} position="absolute" color="default">
+        <BurgerMenu open={sidebarOpen} toggleOpen={() => setSidebarOpen(lastState => !lastState)} />
+        <Typography variant="h6">
+          {title}
+        </Typography>
+        <Box display="flex" flexGrow={2} />
+        <Box flexGrow={1} display="flex" alignItems="center">
+        </Box>
       </AppBar>
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>

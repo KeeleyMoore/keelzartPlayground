@@ -5,8 +5,12 @@ import {
   makeStyles, Drawer, Theme, MenuList, MenuItem, ListItemIcon, ListItemText, Box, Typography
 } from '@material-ui/core';
 
-import HomeIcon from '@material-ui/icons/Home';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
+import LineStyleIcon from '@material-ui/icons/LineStyle';
+import ShortTextIcon from '@material-ui/icons/ShortText';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import NatureIcon from '@material-ui/icons/Nature';
+
 import { Controls } from '../controls';
 
 interface SidebarStyleProps {
@@ -34,8 +38,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflowX: 'hidden',
     width: 0,
   },
-  menuRoot: { padding: theme.spacing(1.5, 0, 0, 0) },
-  menuItem: { paddingLeft: theme.spacing(1.5) },
+  menuRoot: {
+    padding: theme.spacing(1.5, 0, 0, 0)
+  },
+  menuItem: {
+    paddingLeft: theme.spacing(1.5)
+  },
+  menuItemIcon: {
+    minWidth: theme.spacing(4.5)
+  },
 }));
 
 interface SidebarProps extends SidebarStyleProps {
@@ -63,34 +74,34 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       <Box mt={3} mb={1} mx={2}>
         <Typography variant="h5">Keelzart Playground</Typography>
       </Box>
-      <MenuList className={classes.menuRoot}>
+      <MenuList className={classes.menuRoot} dense>
         <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={location.pathname.startsWith('/breathing_dots/')}>
-          <ListItemIcon>
-            <HomeIcon />
+          <ListItemIcon className={classes.menuItemIcon}>
+            <DragIndicatorIcon />
           </ListItemIcon>
-          <ListItemText>Breathing Dots</ListItemText>
+          <ListItemText >Breathing Dots</ListItemText>
         </MenuItem>
         <MenuItem className={classes.menuItem} component={Link} to="/lines">
-          <ListItemIcon>
-            <MenuBookIcon />
+          <ListItemIcon className={classes.menuItemIcon}>
+            <ShortTextIcon />
           </ListItemIcon>
           <ListItemText>Lines</ListItemText>
         </MenuItem>
         <MenuItem className={classes.menuItem} component={Link} to="/kotch">
-          <ListItemIcon>
-            <MenuBookIcon />
+          <ListItemIcon className={classes.menuItemIcon}>
+            <LineStyleIcon />
           </ListItemIcon>
           <ListItemText>Kotch</ListItemText>
         </MenuItem>
         <MenuItem className={classes.menuItem} component={Link} to="/circles">
-          <ListItemIcon>
-            <MenuBookIcon />
+          <ListItemIcon className={classes.menuItemIcon}>
+            <RadioButtonUncheckedIcon />
           </ListItemIcon>
           <ListItemText>Circles</ListItemText>
         </MenuItem>
         <MenuItem className={classes.menuItem} component={Link} to="/tree_generator">
-          <ListItemIcon>
-            <MenuBookIcon />
+          <ListItemIcon className={classes.menuItemIcon}>
+            <NatureIcon />
           </ListItemIcon>
           <ListItemText>Tree Gen</ListItemText>
         </MenuItem>

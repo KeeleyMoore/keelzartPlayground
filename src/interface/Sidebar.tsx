@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import {
-  makeStyles, Drawer, Theme, Divider, MenuList, MenuItem, ListItemIcon, ListItemText, Box, Typography
+  makeStyles, Drawer, Theme, MenuList, MenuItem, ListItemIcon, ListItemText, Box, Typography
 } from '@material-ui/core';
 
 import HomeIcon from '@material-ui/icons/Home';
@@ -60,10 +60,9 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
       open={open}
       variant="permanent"
     >
-      <Box my={1} mx={2}>
-        <Typography variant="h5">Keelzart</Typography>
+      <Box mt={3} mb={1} mx={2}>
+        <Typography variant="h5">Keelzart Playground</Typography>
       </Box>
-      <Divider />
       <MenuList className={classes.menuRoot}>
         <MenuItem className={classes.menuItem} component={Link} to="/breathing_dots" selected={location.pathname.startsWith('/breathing_dots/')}>
           <ListItemIcon>

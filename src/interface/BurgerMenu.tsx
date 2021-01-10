@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: 5,
       boxShadow: '0 2px 5px rgba(255, 101, 47, .2)',
       transitions: 'all .5s ease-in-out',
+      transition: theme.transitions.create(['width', 'marginLeft'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.standard,
+      }),
       '&::before, &::after': {
         content: '""',
         position: 'absolute',
@@ -32,6 +36,10 @@ const useStyles = makeStyles((theme: Theme) =>
         borderRadius: 5,
         boxShadow: '0 2px 5px rgba(255, 101, 47, .2)',
         transitions: 'all .5s ease-in-out',
+        transition: theme.transitions.create(['transform'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.complex,
+        }),
       },
       '&::before': {
         transform: 'translateY(-16px)',
@@ -41,24 +49,24 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     open: {
-      background: 'transparent',
-      boxShadow: 'none',
-      transition: theme.transitions.create(['background'], {
+      width: 0,
+      marginLeft: -50,
+      transition: theme.transitions.create(['width', 'marginLeft'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.short,
+        duration: theme.transitions.duration.standard,
       }),
       '&::before': {
         transform: 'rotate(45deg)',
         transition: theme.transitions.create(['transform'], {
           easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.complex,
+          duration: theme.transitions.duration.standard,
         }),
       },
       '&::after': {
         transform: 'rotate(-45deg)',
         transition: theme.transitions.create(['transform'], {
           easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.complex,
+          duration: theme.transitions.duration.standard,
         }),
       }
     }

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       boxShadow: 'none',
       zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
+      transition: theme.transitions.create(['width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: `calc(100% - ${theme.options.drawerWidth}px)`,
       transition: theme.transitions.create(['width'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.complex,
+        duration: theme.transitions.duration.standard,
       })
     }
   })

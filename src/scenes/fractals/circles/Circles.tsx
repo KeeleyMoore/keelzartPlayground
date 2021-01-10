@@ -13,7 +13,6 @@ interface DrawCirclesProps {
 
 const DrawCirlces: FC<DrawCirclesProps> = ({ sceneControls }) => {
   const { y: reduceY = true, x: reduceX = true, colorMin, colorMax, zColor } = sceneControls;
-  console.log(reduceY, reduceY);
   const { viewport } = useThree();
   const xStart = viewport.width / 2;
   const yStart = viewport.height / 2;

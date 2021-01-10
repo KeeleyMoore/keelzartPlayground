@@ -16,7 +16,6 @@ const KotchControls: FC = () => {
   const [length] = useState<number>(80);
   const [selectedPatterns, setSelectedPatterns] = useState<string[]>(['cross', 'squareMirrored', 'diamond']);
   const [overlap, setOverlap] = useState<boolean>(true);
-  console.log(overlap);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setSceneControls = useCallback(debounce((newDepth, newLength, patterns, overlap) => {

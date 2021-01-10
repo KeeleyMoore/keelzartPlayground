@@ -2,7 +2,7 @@ import React, { FC, useMemo, useRef } from 'react';
 import { Canvas, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 
-import { Camera } from '../../../components/DefaultCamera';
+import { DefaultCamera } from '../../../components';
 import { useControlsContext } from '../../../controls';
 import { KotchControlsValue } from './KotchControls';
 import { kotchCurvePatterns } from './patterns';
@@ -136,7 +136,7 @@ const Kotch: FC = () => {
 
   return (
     <Canvas>
-      <Camera zoom={0.25} />
+      <DefaultCamera zoom={0.25} />
       <color attach="background" args={[0, 0, 0]} />
       {currentScene?.selectedPatterns && <KotchCurve sceneControls={currentScene as unknown as KotchControlsValue} />}
     </Canvas >

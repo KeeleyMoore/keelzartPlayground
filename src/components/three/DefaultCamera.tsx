@@ -1,8 +1,8 @@
-import React, { FC, useRef, useEffect } from "react";
+import { FC, useRef, useEffect } from "react";
 import { useThree } from "react-three-fiber";
 
 export interface CameraProps { zoom: number, position?: [x: number, y: number, z: number] }
-export const Camera: FC<CameraProps> = ({ zoom, position }) => {
+const DefaultCamera: FC<CameraProps> = ({ zoom, position }) => {
   const { viewport } = useThree();
 
   if (!position) {
@@ -19,3 +19,5 @@ export const Camera: FC<CameraProps> = ({ zoom, position }) => {
     <orthographicCamera zoom={zoom} position={position} ref={camera} onUpdate={self => self.updateProjectionMatrix()} />
   );
 };
+
+export default DefaultCamera;

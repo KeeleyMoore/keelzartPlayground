@@ -6,6 +6,7 @@ import { waveMetadata } from './BreathingDots';
 import { WavePreset, Waves } from './types';
 import { streamEnumMetadata, CopyInputValues } from "../../util";
 import presets from './presets.json';
+import { MenuSection } from "../../components";
 
 export const TSliderControl: FC = () => {
   const { tSlider, setTSlider } = useBreathingDotsContext();
@@ -110,7 +111,7 @@ const BreathingDotsControls: FC = () => {
   });
 
   return (
-    <Box mx={3} my={1} display="flex" flexDirection="column">
+    <MenuSection>
       <Typography gutterBottom>Breathing Dots Controls</Typography>
       <ZoomSliderControl />
       <WaveSelect />
@@ -120,7 +121,7 @@ const BreathingDotsControls: FC = () => {
       <Button onClick={() => CopyInputValues(getInputValues())}>
         Copy Inputs
       </Button>
-    </Box>
+    </MenuSection>
   );
 };
 

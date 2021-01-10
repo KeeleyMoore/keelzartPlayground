@@ -1,8 +1,9 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Box, Typography, Checkbox, FormControlLabel, Slider } from '@material-ui/core';
+import { Typography, Checkbox, FormControlLabel, Slider } from '@material-ui/core';
 import debounce from 'lodash/debounce';
 
 import { useControlsContext } from "../../../controls";
+import { MenuSection } from "../../../components";
 
 export interface CirclesControlsValue {
   colorMin: number, colorMax: number, zColor: number, x: boolean, y: boolean
@@ -27,7 +28,7 @@ const CirclesControls: FC = () => {
   }, [colorMax, colorMin, zColor, x, y, setSceneControls]);
 
   return (
-    <Box mx={3} my={1} display="flex" flexDirection="column">
+    <MenuSection>
       <Typography gutterBottom>Circle Controls</Typography>
       <FormControlLabel
         control={
@@ -74,7 +75,7 @@ const CirclesControls: FC = () => {
         max={200}
         onChange={(event, value) => setZColor(value as number)}
       />
-    </Box>
+    </MenuSection>
   );
 };
 

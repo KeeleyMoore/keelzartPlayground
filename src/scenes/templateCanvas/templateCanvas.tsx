@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Canvas } from 'react-three-fiber';
 
-import { Camera } from '../../components/DefaultCamera';
+import { DefaultCamera } from '../../components';
 import { useControlsContext } from '../../controls';
 
 const TemplateCanvas: FC = () => {
@@ -15,7 +15,7 @@ const TemplateCanvas: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={20} />
+      <DefaultCamera zoom={20} />
       <color attach="background" args={[0, 0, 0]} />
 
     </Canvas>

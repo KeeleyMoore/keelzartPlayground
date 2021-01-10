@@ -1,9 +1,10 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { Box, MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel } from '@material-ui/core';
+import { MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel } from '@material-ui/core';
 import debounce from 'lodash/debounce';
 
 import { kotchCurvePatterns } from './patterns';
 import { useControlsContext } from "../../../controls";
+import { MenuSection } from "../../../components";
 
 export interface KotchControlsValue {
   depth: number, length: number, selectedPatterns: string[], overlap: boolean
@@ -35,7 +36,7 @@ const KotchControls: FC = () => {
   };
 
   return (
-    <Box mx={3} my={1} display="flex" flexDirection="column">
+    <MenuSection>
       <Typography gutterBottom>Kotch Controls</Typography>
       <FormControlLabel
         control={
@@ -78,7 +79,7 @@ const KotchControls: FC = () => {
         max={25}
         onChange={(event, value) => setLength(value as number)}
       /> */}
-    </Box>
+    </MenuSection>
   );
 };
 

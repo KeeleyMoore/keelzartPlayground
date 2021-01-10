@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-import { Box, Checkbox, FormControlLabel, makeStyles, Slider, TextField, Typography } from '@material-ui/core';
+import { Checkbox, FormControlLabel, makeStyles, Slider, TextField, Typography } from '@material-ui/core';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 import { useControlsContext } from ".";
+import { MenuSection } from "../components";
 
 const styles = makeStyles(() => ({
   checkboxLabel: {
@@ -23,7 +24,7 @@ const CaptureControls: FC = () => {
   };
 
   return (
-    <Box mx={3} my={1} display="flex" flexDirection="column">
+    <MenuSection>
       <FormControlLabel
         className={classes.checkboxLabel}
         control={
@@ -65,7 +66,7 @@ const CaptureControls: FC = () => {
           />
         </>
       }
-    </Box>
+    </MenuSection>
   );
 };
 

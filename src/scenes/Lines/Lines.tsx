@@ -1,7 +1,7 @@
 import React, { FC, useRef } from 'react';
 import { Canvas } from 'react-three-fiber';
 import * as THREE from 'three';
-import { Camera } from '../../components/DefaultCamera';
+import { DefaultCamera } from '../../components';
 import { useControlsContext } from '../../controls';
 
 function createGeometry() {
@@ -69,7 +69,7 @@ const Lines: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={1} position={[0, 0, 5]} />
+      <DefaultCamera zoom={1} position={[0, 0, 5]} />
       <Line />
       <color attach="background" args={[0, 0, 0]} />
     </Canvas>

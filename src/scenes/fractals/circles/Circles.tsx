@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { Canvas, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 
-import { Camera } from '../../../components/DefaultCamera';
+import { DefaultCamera } from '../../../components';
 import { useControlsContext } from '../../../controls';
 import { rgbValueFromRange } from '../../../util/canvas';
 import { CirclesControlsValue } from './CirclesControls';
@@ -121,7 +121,7 @@ const Circles: FC = () => {
 
   return (
     <Canvas>
-      <Camera zoom={15} />
+      <DefaultCamera zoom={15} />
       <color attach="background" args={[0, 0, 0]} />
       <DrawCirlces sceneControls={currentScene as unknown as CirclesControlsValue} />
     </Canvas>

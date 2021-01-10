@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
-import { Camera } from '../../components/DefaultCamera';
+import { DefaultCamera } from '../../components';
 
 import { useControlsContext } from '../../controls';
 import { streamEnumMetadata } from '../../util/type';
@@ -105,7 +105,7 @@ const BreathingDots: FC = () => {
       }}
       onCreated={bind}
     >
-      <Camera zoom={zoom} position={[0, 0, 5]} />
+      <DefaultCamera zoom={zoom} position={[0, 0, 5]} />
       <color attach="background" args={[0, 0, 0]} />
       <Dots wave={wave} tValue={tSlider} fValue={fSlider} />
       <Effects />

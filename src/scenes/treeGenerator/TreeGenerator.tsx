@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { Canvas, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 
-import { Camera } from '../../components/DefaultCamera';
+import { DefaultCamera } from '../../components';
 
 const generateRandomNumber = (min: number, max: number) => min + Math.floor(Math.random() * (max + 1 - min));
 
@@ -74,7 +74,7 @@ const TreeGenerator: FC = () => {
 
   return (
     <Canvas>
-      <Camera zoom={20} />
+      <DefaultCamera zoom={20} />
       <DrawTree />
     </Canvas>
   );

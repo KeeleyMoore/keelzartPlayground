@@ -34,7 +34,9 @@ const DrawCirlces: FC<DrawCirclesProps> = ({ sceneControls }) => {
     const addCircle = (circleRadius: number, circleX: number, circleY: number) => {
       const circleShape2 = new THREE.Path().absellipse(circleX, circleY, circleRadius, circleRadius, 0, Math.PI * 2, true, 0);
 
-      const segmentCount = Math.min(Math.max(circleRadius * 20, 10), 100);
+      // Make sure segment count is a whole number or gaps can appear
+      const segmentCount = Math.ceil(Math.min(Math.max(circleRadius * 20, 10), 100));
+      // Get the circles points based on the segment count
       const points = circleShape2.getSpacedPoints(segmentCount);
 
       points.forEach((segment, index) => {

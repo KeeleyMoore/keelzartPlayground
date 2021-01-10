@@ -13,23 +13,20 @@ import NatureIcon from '@material-ui/icons/Nature';
 
 import { Controls } from '../controls';
 
-interface SidebarStyleProps {
-  open: boolean;
-}
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    width: ({ open }: SidebarStyleProps): number => open ? theme.options.drawerWidth : 0,
+    width: theme.options.drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
+    border: 'none',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -48,12 +45,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface SidebarProps extends SidebarStyleProps {
+interface SidebarProps {
+  open: boolean;
   onClose: () => void;
 }
 
 const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
-  const classes = useStyles({ open });
+  const classes = useStyles();
   const location = useLocation();
 
   return (

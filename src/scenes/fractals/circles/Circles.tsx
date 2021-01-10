@@ -44,7 +44,7 @@ const DrawCirlces: FC<DrawCirclesProps> = ({ sceneControls }) => {
 
         const r = rgbValueFromRange(segment.x + 10, colorMin, colorMax);
         const g = rgbValueFromRange(segment.y - startRadius - 60, colorMin, colorMax);
-        const b = rgbValueFromRange(segment.width -zColor, colorMin, colorMax);
+        const b = rgbValueFromRange(segment.width - zColor, colorMin, colorMax);
         // Set one colour RGB set for each line segment
         colors.push(r, g, b, r, g, b);
 

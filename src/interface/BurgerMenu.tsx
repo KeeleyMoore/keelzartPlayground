@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     menuBtn_burger: {
       width: 50,
-      height: 4,
+      height: 3,
       background: '#fff',
       borderRadius: 5,
       boxShadow: '0 2px 5px rgba(255, 101, 47, .2)',
@@ -31,12 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
         content: '""',
         position: 'absolute',
         width: 50,
-        height: 4,
+        height: 3,
         background: '#fff',
         borderRadius: 5,
         boxShadow: '0 2px 5px rgba(255, 101, 47, .2)',
         transitions: 'all .5s ease-in-out',
-        transition: theme.transitions.create(['transform'], {
+        transition: theme.transitions.create('transform', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.complex,
         }),
@@ -57,14 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
       '&::before': {
         transform: 'rotate(45deg)',
-        transition: theme.transitions.create(['transform'], {
+        transition: theme.transitions.create('transform', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.standard,
         }),
       },
       '&::after': {
         transform: 'rotate(-45deg)',
-        transition: theme.transitions.create(['transform'], {
+        transition: theme.transitions.create('transform', {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.standard,
         }),

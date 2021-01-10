@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
-    width: ({ open }: SidebarStyleProps): number =>
-      open ? theme.options.drawerWidth : 0,
+    width: ({ open }: SidebarStyleProps): number => open ? theme.options.drawerWidth : 0,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

@@ -18,14 +18,15 @@ const generateRandomNumber = (min: number, max: number) => min + Math.floor(Math
 
 const DrawTree: FC = () => {
   const { viewport } = useThree();
+  // console.log(viewport.height, viewport.width);
   const { points, indices } = useMemo(() => {
-    const x1 = viewport.width / 2,
-      y1 = viewport.height - 120,
+    const x1 = 0,
+      y1 = -10,
       angle = 90,
       length = 6.6,
       thickness = 3,
-      depth = 2,
-      randomBranchMax = Math.floor((x1 / length) / depth);
+      startDepth = 4,
+      randomBranchMax = Math.floor(length / startDepth) + 2;
     let index = 0;
 
     const points: number[] = [];
@@ -37,7 +38,7 @@ const DrawTree: FC = () => {
         const x2 = x1 + (Math.cos(angle * (Math.PI / 180.0)) * depth * branchArmLength);
         const y2 = y1 + (Math.sin(angle * (Math.PI / 180.0)) * depth * branchArmLength);
         points.push(x1, y1, 0, x2, y2, 0);
-        indices.push(index, index++);
+        indices.push(index++, index);
         // LineArray.push({ points: [x1, y1, x2, y2], strokeWidth: depth * thickness });
 
         generateBranches(x2, y2, angle - generateRandomNumber(15, 20), depth - 1, randomBranchMax, thickness);
@@ -45,25 +46,21 @@ const DrawTree: FC = () => {
       }
     };
 
-    generateBranches(x1, y1, angle, depth, randomBranchMax, thickness);
+    generateBranches(x1, y1, angle, startDepth, randomBranchMax, thickness);
 
     return { points, indices };
   }, [viewport]);
-  console.log(points, indices);
+  console.log(points);
   return (
     <>
-      <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
+      <lineSegments>
         <bufferGeometry
           attach="geometry"
           onUpdate={geometry => {
-            geometry.setIndex(indices);
+            // geometry.setIndex(indices);
             geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
           }}
         />
-        <lineBasicMaterial attach="material" />
-      </lineSegments>
-      <lineSegments position-x={(viewport.width / 2) - 1225} position-y={viewport.height / 2}>
-        <geometry />
         <lineBasicMaterial attach="material" />
       </lineSegments>
     </>
@@ -74,10 +71,22 @@ const TreeGenerator: FC = () => {
 
   return (
     <Canvas>
-      <DefaultCamera zoom={20} />
+      <DefaultCamera zoom={20} position={[0, 0, 5]} />
       <DrawTree />
     </Canvas>
   );
 };
 
 export default TreeGenerator;
+
+{/*
+  <lineSegments>
+    <bufferGeometry
+      attach="geometry"
+      onUpdate={geometry => {
+        geometry.setAttribute('position', new THREE.Float32BufferAttribute([-100, 10, 0, 100, -10, 0, -100, -10, 0, 200, 0, 0], 3));
+      }}
+    />
+    <lineBasicMaterial attach="material" />
+  </lineSegments> 
+*/}

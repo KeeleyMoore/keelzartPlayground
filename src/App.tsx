@@ -9,7 +9,8 @@ import { InterfaceProvider, Interface } from './interface';
 import { Lines } from './scenes/lines';
 import { Kotch } from './scenes/fractals/kotch';
 import { Circles } from './scenes/fractals/circles';
-import TreeGenerator from './scenes/treeGenerator/TreeGenerator';
+import { Cantor } from './scenes/fractals/cantors';
+import { TreeGenerator } from './scenes/treeGenerator';
 
 const App: FC = () => {
 
@@ -35,6 +36,9 @@ const App: FC = () => {
                 </Route>
                 <Route path="/tree_generator">
                   <TreeGenerator />
+                </Route>
+                <Route path="/cantor">
+                  <Cantor />
                 </Route>
                 <Redirect to="/breathing_dots" />
               </Switch>

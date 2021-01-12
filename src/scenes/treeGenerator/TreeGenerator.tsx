@@ -45,18 +45,16 @@ const DrawTree: FC<DrawTreeProps> = ({ x, y }) => {
   }, [viewport.height, x, y]);
 
   return (
-    <>
-      <lineSegments>
-        <bufferGeometry
-          attach="geometry"
-          onUpdate={geometry => {
-            geometry.setIndex(indices);
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
-          }}
-        />
-        <lineBasicMaterial attach="material" />
-      </lineSegments>
-    </>
+    <lineSegments>
+      <bufferGeometry
+        attach="geometry"
+        onUpdate={geometry => {
+          geometry.setIndex(indices);
+          geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+        }}
+      />
+      <lineBasicMaterial attach="material" />
+    </lineSegments>
   );
 };
 

@@ -6,11 +6,16 @@ import { DefaultCamera } from '../../components';
 
 const generateRandomNumber = (min: number, max: number) => min + Math.floor(Math.random() * (max + 1 - min));
 
-const DrawTree: FC = () => {
+interface DrawTreeProps {
+  x: number;
+  y: number;
+}
+
+const DrawTree: FC<DrawTreeProps> = ({ x, y }) => {
   const { viewport } = useThree();
   const { points, indices } = useMemo(() => {
-    const x1 = 0,
-      y1 = 1 - (viewport.height / 2) ,
+    const x1 = x,
+      y1 = y + 1 - (viewport.height / 2),
       angle = 90,
       length = 4,
       startDepth = 8,
@@ -37,7 +42,7 @@ const DrawTree: FC = () => {
     generateBranches(x1, y1, angle, startDepth, randomBranchLengthMax);
 
     return { points, indices };
-  }, [viewport.height]);
+  }, [viewport.height, x, y]);
 
   return (
     <>
@@ -59,22 +64,12 @@ const TreeGenerator: FC = () => {
 
   return (
     <Canvas>
-      <DefaultCamera zoom={20} position={[0, 0, 5]} />
-      <DrawTree />
+      <DefaultCamera zoom={10} position={[0, 0, 5]} />
+      <DrawTree x={0} y={0} />
+      <DrawTree x={-25} y={0} />
+      <DrawTree x={+25} y={0} />
     </Canvas>
   );
 };
 
 export default TreeGenerator;
-
-{/*
-  <lineSegments>
-    <bufferGeometry
-      attach="geometry"
-      onUpdate={geometry => {
-        geometry.setAttribute('position', new THREE.Float32BufferAttribute([-100, 10, 0, 100, -10, 0, -100, -10, 0, 200, 0, 0], 3));
-      }}
-    />
-    <lineBasicMaterial attach="material" />
-  </lineSegments> 
-*/}

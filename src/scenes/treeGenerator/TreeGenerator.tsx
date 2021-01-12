@@ -6,58 +6,46 @@ import { DefaultCamera } from '../../components';
 
 const generateRandomNumber = (min: number, max: number) => min + Math.floor(Math.random() * (max + 1 - min));
 
-// depth: 12,
-// length: 6.6,
-// thickness: 3,
-// treesGenerated: 1,
-// thicknessMax: 20,
-// lengthMax: 10,
-// depthMax: 13,
-// height: window.innerHeight - 120,
-// width: window.innerWidth,
-
 const DrawTree: FC = () => {
   const { viewport } = useThree();
-  // console.log(viewport.height, viewport.width);
   const { points, indices } = useMemo(() => {
     const x1 = 0,
-      y1 = -10,
+      y1 = 1 - (viewport.height / 2) ,
       angle = 90,
-      length = 6.6,
-      thickness = 3,
-      startDepth = 4,
-      randomBranchMax = Math.floor(length / startDepth) + 2;
+      length = 4,
+      startDepth = 8,
+      randomBranchLengthMax = Math.floor((viewport.height / length) / startDepth) + 0.5;
     let index = 0;
+    console.log(y1);
 
     const points: number[] = [];
     const indices: number[] = [];
-    const generateBranches = (x1: number, y1: number, angle: number, depth: number, randomBranchMax: number, thickness: number) => {
-      const branchArmLength = generateRandomNumber(0, randomBranchMax);
+    const generateBranches = (x1: number, y1: number, angle: number, depth: number, randomBranchMax: number) => {
+      const branchArmLength = generateRandomNumber(depth === startDepth ? 0.1 : 0, randomBranchMax);
 
       if (depth !== 0) {
         const x2 = x1 + (Math.cos(angle * (Math.PI / 180.0)) * depth * branchArmLength);
         const y2 = y1 + (Math.sin(angle * (Math.PI / 180.0)) * depth * branchArmLength);
         points.push(x1, y1, 0, x2, y2, 0);
-        indices.push(index++, index);
-        // LineArray.push({ points: [x1, y1, x2, y2], strokeWidth: depth * thickness });
+        indices.push(index++, index, index, index++, index, index);
 
-        generateBranches(x2, y2, angle - generateRandomNumber(15, 20), depth - 1, randomBranchMax, thickness);
-        generateBranches(x2, y2, angle + generateRandomNumber(15, 20), depth - 1, randomBranchMax, thickness);
+        generateBranches(x2, y2, angle - generateRandomNumber(15, 20), depth - 1, randomBranchMax);
+        generateBranches(x2, y2, angle + generateRandomNumber(15, 20), depth - 1, randomBranchMax);
       }
     };
 
-    generateBranches(x1, y1, angle, startDepth, randomBranchMax, thickness);
+    generateBranches(x1, y1, angle, startDepth, randomBranchLengthMax);
 
     return { points, indices };
-  }, [viewport]);
-  console.log(points);
+  }, [viewport.height]);
+
   return (
     <>
       <lineSegments>
         <bufferGeometry
           attach="geometry"
           onUpdate={geometry => {
-            // geometry.setIndex(indices);
+            geometry.setIndex(indices);
             geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
           }}
         />

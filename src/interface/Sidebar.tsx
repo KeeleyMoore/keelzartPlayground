@@ -10,6 +10,7 @@ import LineStyleIcon from '@material-ui/icons/LineStyle';
 import ShortTextIcon from '@material-ui/icons/ShortText';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import NatureIcon from '@material-ui/icons/Nature';
+import TitleIcon from '@material-ui/icons/Title';
 
 import { Controls } from '../controls';
 
@@ -95,6 +96,12 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
             <RadioButtonUncheckedIcon />
           </ListItemIcon>
           <ListItemText>Circles</ListItemText>
+        </MenuItem>
+        <MenuItem className={classes.menuItem} component={Link} to="/cantor">
+          <ListItemIcon className={classes.menuItemIcon}>
+            <TitleIcon />
+          </ListItemIcon>
+          <ListItemText>Cantor</ListItemText>
         </MenuItem>
         <MenuItem className={classes.menuItem} component={Link} to="/tree_generator">
           <ListItemIcon className={classes.menuItemIcon}>

@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { DefaultCamera } from '../../../components';
 
 const DrawCantor: FC = () => {
-  const division = 33.33 / 100,
+  const division = 0.33,
     divisionCap = 35,
     strokeWidth = 1,
     startLength = 10,
@@ -13,19 +13,23 @@ const DrawCantor: FC = () => {
     rotate = true,
     height = window.innerHeight - 120,
     width = window.innerWidth,
-    verticalStart = false;
-  const xStart = (width / 100) * startLength,
+    verticalStart = true;
+  const xStart = 0 - startLength / 2,
     yStart = height / 2,
     len = width - (xStart * 2);
   const { points } = useMemo(() => {
-    let points = verticalStart ? [xStart, yStart - len / 2, 0, xStart, yStart + len / 2, 0] : [0 - startLength, 0, 0, 0 + startLength / 2, 0, 0];
+    let points = [0 - startLength, 0, 0, 0 + startLength / 2, 0, 0];
 
+    //verticalStart ? [xStart, yStart - len / 2, 0, xStart, yStart + len / 2, 0] : 
     const addVertical = (x: number, y: number, length: number) => {
-      const x1 = x - len * division;
-      const x2 = x - len * division;
-      const y1 = y - len / 2;
-      const y2 = y + len / 2;
-      points.push(x1, y1, 0, x2, y2, 0);
+      const x1 = x - length * division;
+      const x2 = x + length * division;
+      const y1 = y - length / 2;
+      const y2 = y + length / 2;
+
+      points.push(x, y, 0, x1, y1, 0, x2, y2, 0);
+      console.log('pushed', x1, y1, 0, x2, y2, 0);
+      const len = length * (division * 2);
 
       generateCantorPoints(x1, y1, len, false);
       generateCantorPoints(x2, y2, len, false);
@@ -37,28 +41,36 @@ const DrawCantor: FC = () => {
       const y1 = y;
       const y2 = y;
       const len = length * (division * 2);
-      points.push(x1, y1, 0, x2, y2, 0);
+      points.push(x, y, 0, x1, y1, 0, x2, y2, 0);
+
+      console.log('pushed', x1, y1, 0, x2, y2, 0);
       generateCantorPoints(x1, y1, len, true);
       generateCantorPoints(x2, y2, len, true);
     };
+    let counter = 0;
 
     const generateCantorPoints = (x: number, y: number, length: number, vertical: boolean) => {
-
-      if (length > 7) {
-
-      if (vertical) {
-        return addVertical(x, y, length);
-      }
-      return addHorizontal(x, y, length);
-
+      // console.log('generate', x, vertical, length);
+      counter++;
+      if (counter < 20) {
+        console.log(counter, 'counter');
+        if (Math.abs(length) < 270) {
+          if (vertical) {
+            console.log('vertical', x);
+            return addVertical(x, y, length);
+          }
+          console.log('horizontal', x);
+          return addHorizontal(x, y, length);
+        }
       }
     };
 
-    generateCantorPoints(xStart, yStart - len / 2, 8, false);
+    generateCantorPoints(0 - startLength, 0, startLength, false);
+    generateCantorPoints(0 + startLength, 0, startLength, false);
 
     return { points };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(points);

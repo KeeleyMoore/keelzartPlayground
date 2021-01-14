@@ -14,13 +14,16 @@ const DrawCantor: FC = () => {
     height = window.innerHeight - 120,
     width = window.innerWidth,
     verticalStart = true;
-  const xStart = 0 - startLength / 2,
+
+
+  const xStart = (width / 100) * startLength,
     yStart = height / 2,
     len = width - (xStart * 2);
   const { points } = useMemo(() => {
-    let points = [0 - startLength, 0, 0, 0 + startLength / 2, 0, 0];
+    console.log('x and y', xStart, yStart);
+    let points = [xStart, yStart, 0, 0 + startLength / 2, 0, 0];
 
-    //verticalStart ? [xStart, yStart - len / 2, 0, xStart, yStart + len / 2, 0] : 
+    // verticalStart ? [xStart, yStart - len / 2, 0, xStart, yStart + len / 2, 0];
     const addVertical = (x: number, y: number, length: number) => {
       const x1 = x - length * division;
       const x2 = x + length * division;
@@ -52,28 +55,26 @@ const DrawCantor: FC = () => {
     const generateCantorPoints = (x: number, y: number, length: number, vertical: boolean) => {
       // console.log('generate', x, vertical, length);
       counter++;
-      if (counter < 20) {
+      if (counter < 5) {
         console.log(counter, 'counter');
         if (Math.abs(length) < 270) {
           if (vertical) {
             console.log('vertical', x);
             return addVertical(x, y, length);
           }
-          console.log('horizontal', x);
-          return addHorizontal(x, y, length);
+          addHorizontal(x, y, length);
         }
       }
     };
-
-    generateCantorPoints(0 - startLength, 0, startLength, false);
-    generateCantorPoints(0 + startLength, 0, startLength, false);
+    generateCantorPoints(xStart, yStart, startLength, false);
+    // generateCantorPoints(0 - startLength, 0, startLength, false);
 
     return { points };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(points);
+  // console.log(points);
 
   return (
     <lineSegments>

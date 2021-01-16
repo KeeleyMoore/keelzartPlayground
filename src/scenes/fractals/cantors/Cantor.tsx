@@ -50,7 +50,7 @@ const DrawAngledCantor: FC = () => {
   const { viewport } = useThree();
   const width = viewport.width;
 
-  const startLength = (width / 100) * 60;
+  const startLength = (width / 100) * 25;
   const division = 1 / 3;
 
   const xStart = 0 - (startLength / 2),
@@ -58,25 +58,16 @@ const DrawAngledCantor: FC = () => {
 
   const { points } = useMemo(() => {
     const addVertical = (x: number, y: number, length: number) => {
-      points.push(x, y - length / 2, 0, x, y + length / 2, 0);
+      const newLength = (length / 3) * 2;
+      points.push(x, y - newLength, 0, x, y + newLength, 0);
 
       const x1 = x - length * division;
-      const y1 = y - length / 2;
-      const y2 = y + length / 2;
+      const y1 = y - newLength;
+      const y2 = y + newLength;
 
       const len = length * (division * 2);
       addHorizontal(x1, y1, len);
       addHorizontal(x1, y2, len);
-    };
-
-    const generateCantorPoints = (x: number, y: number, length: number) => {
-      points.push(x, y, 0, x + length, y, 0);
-
-      if (length > 1) {
-        const newLength = length * division;
-        addVertical(x, y, newLength);
-        addVertical(x + length, y, newLength);
-      }
     };
 
     const addHorizontal = (x: number, y: number, length: number) => {
@@ -88,6 +79,15 @@ const DrawAngledCantor: FC = () => {
         addVertical(x, y, len);
         addVertical(x2, y, len);
       }
+    };
+
+    const generateCantorPoints = (x: number, y: number, length: number) => {
+      points.push(x, y, 0, x + length, y, 0);
+
+      const newLength = (length * division) * 2;
+      addVertical(x, y, newLength);
+      addVertical(x + length, y, newLength);
+
     };
 
     let points: number[] = [];

@@ -46,13 +46,78 @@ const DrawSimpleCantor: FC = () => {
   );
 };
 
+const DrawAngledCantor: FC = () => {
+  const { viewport } = useThree();
+  const width = viewport.width;
+
+  const startLength = (width / 100) * 60;
+  const division = 1 / 3;
+
+  const xStart = 0 - (startLength / 2),
+    yStart = 0;
+
+  const { points } = useMemo(() => {
+    const addVertical = (x: number, y: number, length: number) => {
+      points.push(x, y - length / 2, 0, x, y + length / 2, 0);
+
+      const x1 = x - length * division;
+      const y1 = y - length / 2;
+      const y2 = y + length / 2;
+
+      const len = length * (division * 2);
+      addHorizontal(x1, y1, len);
+      addHorizontal(x1, y2, len);
+    };
+
+    const generateCantorPoints = (x: number, y: number, length: number) => {
+      points.push(x, y, 0, x + length, y, 0);
+
+      if (length > 1) {
+        const newLength = length * division;
+        addVertical(x, y, newLength);
+        addVertical(x + length, y, newLength);
+      }
+    };
+
+    const addHorizontal = (x: number, y: number, length: number) => {
+      const x2 = x + length;
+      points.push(x, y, 0, x2, y, 0);
+
+      const len = length * (division * 2);
+      if (length > 5) {
+        addVertical(x, y, len);
+        addVertical(x2, y, len);
+      }
+    };
+
+    let points: number[] = [];
+    generateCantorPoints(xStart, yStart, startLength);
+
+    return { points };
+
+  }, [startLength, xStart, division]);
+
+  return (
+    <lineSegments>
+      <bufferGeometry
+        attach="geometry"
+        onUpdate={geometry => {
+          geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+        }}
+      />
+      <lineBasicMaterial attach="material" />
+    </lineSegments>
+  );
+};
+
 const Cantor: FC = () => {
 
   return (
     <Canvas>
       <DefaultCamera zoom={1} position={[0, 0, 5]} />
       <color attach="background" args={[0, 0, 0]} />
-      <DrawSimpleCantor />
+      {/* <DrawSimpleCantor /> */}
+      <DrawAngledCantor />
     </Canvas>
   );
 };

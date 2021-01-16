@@ -50,7 +50,7 @@ const DrawAngledCantor: FC = () => {
   const { viewport } = useThree();
   const width = viewport.width;
 
-  const startLength = (width / 100) * 25;
+  const startLength = (width / 100) * 35;
   const division = 1 / 3;
 
   const xStart = 0 - (startLength / 2),
@@ -111,13 +111,16 @@ const DrawAngledCantor: FC = () => {
 };
 
 const Cantor: FC = () => {
-
+  const simple = false;
   return (
     <Canvas>
       <DefaultCamera zoom={1} position={[0, 0, 5]} />
       <color attach="background" args={[0, 0, 0]} />
-      {/* <DrawSimpleCantor /> */}
-      <DrawAngledCantor />
+      {
+        simple ?
+          <DrawSimpleCantor /> :
+          <DrawAngledCantor />
+      }
     </Canvas>
   );
 };

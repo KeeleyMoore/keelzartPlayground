@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Sidebar from './Sidebar';
 
 import BurgerMenu from './BurgerMenu';
+import { Controls } from '../controls';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,6 +42,7 @@ const Interface: FC = () => {
         color="default"
       >
         <BurgerMenu open={sidebarOpen} toggleOpen={() => setSidebarOpen(lastState => !lastState)} />
+        <Controls />
       </AppBar>
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>

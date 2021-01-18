@@ -1,4 +1,4 @@
-import { Divider } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -15,13 +15,19 @@ const Controls: FC = () => {
   const circlesSelected = location.pathname.startsWith('/circles');
 
   return (
-    <>
+    <Box
+      position="absolute"
+      right={0}
+      top={0}
+      width={250}
+      height="100%"
+      bgcolor="rgba(0,0,0,4)"
+    >
       <CaptureControls />
-      <Divider />
       {breathingDotsSelected && <BreathingDotsControls />}
       {kotchSelected && <KotchControls />}
       {circlesSelected && <CirclesControls />}
-    </>
+    </Box>
   );
 };
 

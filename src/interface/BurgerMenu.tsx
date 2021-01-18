@@ -88,9 +88,9 @@ const BurgerMenu: FC<BurgerMenuProps> = ({ open, toggleOpen }) => {
 
   return (
     <div className={classes.menuBtn} onClick={handleClick} >
-      <div className={clsx(classes.menuBtn_burger, { [classes.open]: open })} >
+      <div className={clsx(classes.menuBtn_burger, { [classes.open]: open })}>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -12,8 +12,6 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import NatureIcon from '@material-ui/icons/Nature';
 import TitleIcon from '@material-ui/icons/Title';
 
-import { Controls } from '../controls';
-
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexShrink: 0,
@@ -111,7 +109,7 @@ const Sidebar: FC<SidebarProps> = ({ onClose, open }) => {
         </MenuItem>
       </MenuList>
       <Box flexGrow={1} mb={1} />
-      <Controls />
+      {/* <Controls /> */}
     </Drawer>
   );
 };

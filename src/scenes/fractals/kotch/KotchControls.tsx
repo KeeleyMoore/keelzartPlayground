@@ -1,16 +1,30 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel } from '@material-ui/core';
+import { MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel, Chip, Box, FormControl, makeStyles, InputLabel } from '@material-ui/core';
 import debounce from 'lodash/debounce';
 
 import { kotchCurvePatterns } from './patterns';
 import { useControlsContext } from "../../../controls";
 import { MenuSection } from "../../../components";
 
+const useStyles = makeStyles(() => ({
+  formControl: {
+    maxWidth: 250
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  }
+}));
+
 export interface KotchControlsValue {
   depth: number, length: number, selectedPatterns: string[], overlap: boolean
 }
 
 const KotchControls: FC = () => {
+  const classes = useStyles();
   const { setCurrentScene } = useControlsContext();
   const [depth] = useState<number>(4);
   const [length] = useState<number>(80);
@@ -46,21 +60,32 @@ const KotchControls: FC = () => {
         }
         label="Overlap"
       />
-      <Select
-        multiple
-        value={selectedPatterns}
-        onChange={handlePatternSelect}
-        input={<Input />}
-        renderValue={(selected) => (selected as string[]).join(', ')}
-      >
-        {Object.keys(kotchCurvePatterns).map((name) => (
-          <MenuItem key={name} value={name}>
-            <Checkbox checked={selectedPatterns.indexOf(name) > -1} />
-            <ListItemText primary={name} />
-          </MenuItem>
-        ))}
-      </Select>
-
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="age-native-helper">Pattern</InputLabel>
+        <Select
+          multiple
+          value={selectedPatterns}
+          onChange={handlePatternSelect}
+          input={<Input />}
+          fullWidth
+          title="Patterns"
+          // renderValue={(selected) => (selected as string[]).join(', ')}
+          renderValue={(selected) => (
+            <div className={classes.chips}>
+              {(selected as string[]).map((value) => (
+                <Chip key={value} label={value} className={classes.chip} />
+              ))}
+            </div>
+          )}
+        >
+          {Object.keys(kotchCurvePatterns).map((name) => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={selectedPatterns.indexOf(name) > -1} />
+              <ListItemText primary={name} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       {/*
       <Typography variant="subtitle2">Depth of curve</Typography>
       <Slider

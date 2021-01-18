@@ -21,7 +21,10 @@ const Controls: FC = () => {
       top={0}
       width={250}
       height="100%"
-      bgcolor="rgba(0,0,0,4)"
+      bgcolor="rgba(0,0,0,0.4)"
+      zIndex={1202}
+      overflow="hidden auto"
+      color="#fff"
     >
       <CaptureControls />
       {breathingDotsSelected && <BreathingDotsControls />}

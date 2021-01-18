@@ -7,26 +7,24 @@ import Sidebar from './Sidebar';
 import BurgerMenu from './BurgerMenu';
 import { Controls } from '../controls';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      boxShadow: 'none',
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.standard,
-      }),
-      backgroundColor: 'transparent',
-    },
-    appBarShift: {
-      width: `calc(100% - ${theme.options.drawerWidth}px)`,
-      transition: theme.transitions.create(['width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.standard,
-      })
-    }
-  })
-);
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    boxShadow: 'none',
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.standard,
+    }),
+    backgroundColor: 'transparent',
+  },
+  appBarShift: {
+    width: `calc(100% - ${theme.options.drawerWidth}px)`,
+    transition: theme.transitions.create(['width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.standard,
+    })
+  }
+}));
 
 const Interface: FC = () => {
   const classes = useStyles();
@@ -42,8 +40,8 @@ const Interface: FC = () => {
         color="default"
       >
         <BurgerMenu open={sidebarOpen} toggleOpen={() => setSidebarOpen(lastState => !lastState)} />
-        <Controls />
       </AppBar>
+      <Controls />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>
   );

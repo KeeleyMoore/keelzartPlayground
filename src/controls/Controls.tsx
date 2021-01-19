@@ -10,15 +10,7 @@ import { CirclesControls } from '../scenes/fractals/circles';
 
 import CaptureControls from './CaptureControls';
 
-const useStyles = makeStyles(() => ({
-  collapse: {
-    overflow: "hidden auto",
-    maxHeight: '100%'
-  }
-}));
-
 const Controls: FC = () => {
-  const classes = useStyles();
   const [open, setOpen] = useState<boolean>(true);
   const location = useLocation();
   const breathingDotsSelected = location.pathname.startsWith('/breathing_dots');

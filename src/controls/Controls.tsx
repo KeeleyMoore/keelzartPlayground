@@ -1,6 +1,8 @@
-import { Box } from '@material-ui/core';
-import React, { FC } from 'react';
+import { Box, Button, Collapse, makeStyles } from '@material-ui/core';
+import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import TuneIcon from '@material-ui/icons/Tune';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import { BreathingDotsControls } from '../scenes/breathingDots';
 import { KotchControls } from '../scenes/fractals/kotch';
@@ -8,7 +10,16 @@ import { CirclesControls } from '../scenes/fractals/circles';
 
 import CaptureControls from './CaptureControls';
 
+const useStyles = makeStyles(() => ({
+  collapse: {
+    overflow: "hidden auto",
+    maxHeight: '100%'
+  }
+}));
+
 const Controls: FC = () => {
+  const classes = useStyles();
+  const [open, setOpen] = useState<boolean>(true);
   const location = useLocation();
   const breathingDotsSelected = location.pathname.startsWith('/breathing_dots');
   const kotchSelected = location.pathname.startsWith('/kotch');
@@ -20,16 +31,28 @@ const Controls: FC = () => {
       right={0}
       top={0}
       width={250}
-      height="100%"
-      bgcolor="rgba(0,0,0,0.4)"
+      height="auto"
+      maxHeight="100%"
+      bgcolor="rgba(0,0,0,0.6)"
       zIndex={1202}
-      overflow="hidden auto"
       color="#fff"
+      overflow="hidden auto"
+      borderLeft="1px solid rgba(255,255,255,0.1)"
+      borderBottom="1px solid rgba(255,255,255,0.1)"
     >
-      <CaptureControls />
-      {breathingDotsSelected && <BreathingDotsControls />}
-      {kotchSelected && <KotchControls />}
-      {circlesSelected && <CirclesControls />}
+      <Collapse in={open}>
+        <CaptureControls />
+        {breathingDotsSelected && <BreathingDotsControls />}
+        {kotchSelected && <KotchControls />}
+        {circlesSelected && <CirclesControls />}
+      </Collapse>
+      <Button
+        fullWidth
+        onClick={() => setOpen((prevState) => !prevState)}
+        startIcon={open ? <KeyboardArrowUpIcon /> : <TuneIcon />}
+      >
+        Controls
+      </Button>
     </Box>
   );
 };

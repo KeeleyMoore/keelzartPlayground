@@ -1,5 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from "react";
-import { MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel, Chip, Box, FormControl, makeStyles, InputLabel } from '@material-ui/core';
+import {
+  MenuItem, Select, Typography, Input, ListItemText, Checkbox, FormControlLabel, Chip, FormControl, makeStyles, InputLabel
+} from '@material-ui/core';
 import debounce from 'lodash/debounce';
 
 import { kotchCurvePatterns } from './patterns';

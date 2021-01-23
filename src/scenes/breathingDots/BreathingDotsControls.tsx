@@ -14,6 +14,7 @@ export const TSliderControl: FC = () => {
     <Box>
       <Typography gutterBottom variant="subtitle2">T</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         value={tSlider}
         min={1}
@@ -30,6 +31,7 @@ export const FSliderControl: FC = () => {
     <Box mb={2}>
       <Typography gutterBottom variant="subtitle2">F</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         value={fSlider}
         step={0.1}
@@ -43,11 +45,12 @@ export const FSliderControl: FC = () => {
 
 export const ZoomSliderControl: FC = () => {
 
-  const {  zoom, setZoom  } = useBreathingDotsContext();
+  const { zoom, setZoom } = useBreathingDotsContext();
   return (
     <Box>
       <Typography gutterBottom variant="subtitle2">Zoom</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         value={zoom}
         min={2}

@@ -50,6 +50,7 @@ const CirclesControls: FC = () => {
       />
       <Typography variant="subtitle2">Min Colour range</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         valueLabelFormat={(value) => value + 60}
         value={colorMin}
@@ -59,6 +60,7 @@ const CirclesControls: FC = () => {
       />
       <Typography variant="subtitle2">Max Colour range</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         valueLabelFormat={(value) => value + 50}
         value={colorMax}
@@ -68,6 +70,7 @@ const CirclesControls: FC = () => {
       />
       <Typography variant="subtitle2">Z Colour range</Typography>
       <Slider
+        color="secondary"
         valueLabelDisplay="auto"
         valueLabelFormat={(value) => value + 40}
         value={zColor}

@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, makeStyles } from '@material-ui/core';
+import { Box, Button, Collapse } from '@material-ui/core';
 import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import TuneIcon from '@material-ui/icons/Tune';
